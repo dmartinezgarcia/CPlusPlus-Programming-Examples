@@ -1,5 +1,5 @@
 // Exercise to execute. 1 <= ExerciseNum <= NumberOfTotalExercises.
-int ExerciseNum = 6;
+int ExerciseNum = 13;
 
 // Add function prototypes as you add them.
 void ExerciseNum1 (void);
@@ -8,6 +8,15 @@ void ExerciseNum3 (void);
 void ExerciseNum4 (void);
 void ExerciseNum5 (void);
 void ExerciseNum6 (void);
+void ExerciseNum7 (void);
+void ExerciseNum8 (void);
+void ExerciseNum9 (void);
+void ExerciseNum10 (void);
+void ExerciseNum11 (void);
+void ExerciseNum12 (void);
+void ExerciseNum13 (void);
+void ExerciseNum14 (void);
+void ExerciseNum15 (void);
 
 typedef void (*Exercise) (void);
 // Fill the array as you add exercises.
@@ -17,7 +26,16 @@ Exercise Exercises[] = {
 		ExerciseNum3,
 		ExerciseNum4,
 		ExerciseNum5,
-		ExerciseNum6
+		ExerciseNum6,
+		ExerciseNum7,
+		ExerciseNum8,
+		ExerciseNum9,
+		ExerciseNum10,
+		ExerciseNum11,
+		ExerciseNum12,
+		ExerciseNum13,
+		ExerciseNum14,
+		ExerciseNum15
 };
 
 #include <stdio.h>
@@ -106,6 +124,136 @@ void ExerciseNum6 (void)
 	int v1 = 10, v2 = 20;
 
 	std::cout << "The sum of " << v1 << " and " << v2 << " is " << v1 + v2 << std::endl;
+}
+
+/********************************************//**
+ *  Exercise 1.7
+ *
+ *  Compile a program that has incorrectly nested comments.
+ ***********************************************/
+
+void ExerciseNum7 (void)
+{
+	/* Easy to do. */
+}
+
+/********************************************//**
+ *  Exercise 1.8
+ *
+ *  Indicate which, if any, of the following output statements are legal:
+ *
+ *  (statements)
+ *
+ *  After you've predicted what will happen, test your answers by compiling a program with each of these statements. Correct any errors you encounter.
+ ***********************************************/
+
+void ExerciseNum8 (void)
+{
+	/* This are the correct statements. */
+	std::cout << "/*";
+	std::cout << "*/";
+	std::cout << "/* */ */";
+	std::cout << "/* */ /* /* */";
+}
+
+/********************************************//**
+ *  Exercise 1.9
+ *
+ *  Write a program that uses a while to sum the numbers from 50 to 100.
+ ***********************************************/
+
+void ExerciseNum9 (void)
+{
+	int sum = 0, i = 50;
+
+	while (i <= 100)
+		sum += i++;
+
+	std::cout << "Total sum: " << sum << std::endl;
+}
+
+/********************************************//**
+ *  Exercise 1.10
+ *
+ *  In addition to the ++ operator that adds 1 to its operand, there is a decrement operator (--) that subtracts 1. Use the decrement operator to write a while that prints the numbers from ten down to zero.
+ ***********************************************/
+void ExerciseNum10 (void)
+{
+	int i = 10;
+
+	while (i != 0)
+		std::cout << i-- << "\r";
+	std::cout << std::endl;
+}
+
+/********************************************//**
+ *  Exercise 1.11
+ *
+ *  Write a program that prompts the user for two integers. Print each number in the range specified by those two integers.
+ ***********************************************/
+void ExerciseNum11 (void)
+{
+	int i, a;
+
+	std::cin >> i >> a;
+
+	while (++i < a)
+		std::cout << i << " ";
+	std::cout << std::endl;
+}
+
+/********************************************//**
+ *  Exercise 1.12
+ *
+ *  What does the following for loop do? What is the final value of sum?
+ ***********************************************/
+void ExerciseNum12 (void)
+{
+	int sum = 0, i;
+	for (i = -100; i <= 100; i++)
+		sum += i;
+	std::cout << i << std::endl;
+}
+
+/********************************************//**
+ *  Exercise 1.13
+ *
+ *  Rewrite the previous exercises with the while loop.
+ ***********************************************/
+void ExerciseNum13 (void)
+{
+	int sum, i;
+
+	/* First program. */
+	for (i = 50, sum = 0; i <= 100; sum += i++);
+
+	std::cout << "Total sum: " << sum << std::endl;
+
+	/* Second program. */
+	std::cin >> i >> sum;
+
+	for (; ++i < sum; std::cout << i << " ");
+	std::cout << std::endl;
+}
+
+/********************************************//**
+ *  Exercise 1.14
+ *
+ *  Compare and contrast the loops that used a for with those using a while. Are there advantages or disadvantages to using either form?
+ ***********************************************/
+void ExerciseNum14 (void)
+{
+
+}
+
+/********************************************//**
+ *  Exercise 1.15
+ *
+ *  Write programs that contain the common errors discussed in the box on page 16. Familiarize yourself with the messages the compiler generates.
+ ***********************************************/
+void ExerciseNum15 (void)
+{
+
 }
 
 /********************************************//**
