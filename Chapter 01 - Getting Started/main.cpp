@@ -1,5 +1,5 @@
 // Exercise to execute. 1 <= ExerciseNum <= NumberOfTotalExercises.
-int ExerciseNum = 13;
+int ExerciseNum = 25;
 
 // Add function prototypes as you add them.
 void ExerciseNum1 (void);
@@ -17,6 +17,16 @@ void ExerciseNum12 (void);
 void ExerciseNum13 (void);
 void ExerciseNum14 (void);
 void ExerciseNum15 (void);
+void ExerciseNum16 (void);
+void ExerciseNum17 (void);
+void ExerciseNum18 (void);
+void ExerciseNum19 (void);
+void ExerciseNum20 (void);
+void ExerciseNum21 (void);
+void ExerciseNum22 (void);
+void ExerciseNum23 (void);
+void ExerciseNum24 (void);
+void ExerciseNum25 (void);
 
 typedef void (*Exercise) (void);
 // Fill the array as you add exercises.
@@ -35,11 +45,22 @@ Exercise Exercises[] = {
 		ExerciseNum12,
 		ExerciseNum13,
 		ExerciseNum14,
-		ExerciseNum15
+		ExerciseNum15,
+		ExerciseNum16,
+		ExerciseNum17,
+		ExerciseNum18,
+		ExerciseNum19,
+		ExerciseNum20,
+		ExerciseNum21,
+		ExerciseNum22,
+		ExerciseNum23,
+		ExerciseNum24,
+		ExerciseNum25
 };
 
 #include <stdio.h>
 #include <iostream>
+#include "Sales_item.h"
 
 /********************************************//**
  *  Exercise 1.1
@@ -254,6 +275,204 @@ void ExerciseNum14 (void)
 void ExerciseNum15 (void)
 {
 
+}
+
+/********************************************//**
+ *  Exercise 1.16
+ *
+ *	Write your version of a program that prints the sum of a set of integers read from cin.
+ ***********************************************/
+void ExerciseNum16 (void)
+{
+	int a, sum = 0;
+
+	while (std::cin >> a)
+		sum += a;
+	std::cout << "Total sum: " << sum << std::endl;
+}
+
+/********************************************//**
+ *  Exercise 1.17
+ *
+ *	What happens in the program presented in this section if the input values are all equal? What if there are no duplicated values?
+ ***********************************************/
+void ExerciseNum17 (void)
+{
+	int currVal = 0, val = 0;
+	if (std::cin >> currVal) {
+		int cnt = 1;
+		while (std::cin >> val) {
+			if (val == currVal)
+				++cnt;
+			else {
+				std::cout << currVal << " occurs " << cnt << " times" << std::endl;
+				currVal = val;
+				cnt = 1;
+			}
+		}
+		std::cout << currVal << " occurs " << cnt << " times" << std::endl;
+	}
+}
+
+/********************************************//**
+ *  Exercise 1.18
+ *
+ *	Compile and run the program from this section giving it only equal values as input. Run it again giving it values in which no number is repeated.
+ ***********************************************/
+void ExerciseNum18 (void)
+{
+	int currVal = 0, val = 0;
+	if (std::cin >> currVal) {
+		int cnt = 1;
+		while (std::cin >> val) {
+			if (val == currVal)
+				++cnt;
+			else {
+				std::cout << currVal << " occurs " << cnt << " times" << std::endl;
+				currVal = val;
+				cnt = 1;
+			}
+		}
+		std::cout << currVal << " occurs " << cnt << " times" << std::endl;
+	}
+}
+
+/********************************************//**
+ *  Exercise 1.19
+ *
+ *  Revise the program you wrote for the exercises in $ 1.4.1 (p. 13) that printed a range of numbers so that it handles input in which the first number is smaller than the second.
+ ***********************************************/
+void ExerciseNum19 (void)
+{
+	int a, b;
+
+	/* Second program. */
+	std::cin >> a >> b;
+	if (a > b) {
+		a = a ^ b;
+		b = a ^ b;
+		a = a ^ b;
+	}
+
+	for (; ++a < b; std::cout << a << " ");
+	std::cout << std::endl;
+}
+
+/********************************************//**
+ *  Exercise 1.20
+ *
+ *  http://www.informit.com/title/032174113 contains a copy of Sales_item.h in the Chapter 1 code directory. Copy that file to your working directory. Use it to write a program that reads a set of book sales transactions, writing each transaction to the standard output.
+ ***********************************************/
+void ExerciseNum20 (void)
+{
+	Sales_item book;
+
+	std::cout << "Enter sale items in the following format: <ISBN - string> <Units - int> <Value - float>\r\n" << std::endl;
+	while (std::cin >> book)
+		std::cout << book << std::endl;
+}
+
+/********************************************//**
+ *  Exercise 1.21
+ *
+ *  Write a program that reads two Sales_item objects that have the same ISBN and produces their sum.
+ ***********************************************/
+void ExerciseNum21 (void)
+{
+	Sales_item book1, book2;
+
+	std::cout << "Enter two books that have the same ISBN: ";
+	std::cin >> book1 >> book2;
+	if (book1.isbn() == book2.isbn())
+		std::cout << "\nThe books sum is " << book1 + book2;
+	else
+		std::cout << "\nThe books don't have the same ISBN";
+	std::cout << std::endl;
+}
+
+/********************************************//**
+ *  Exercise 1.22
+ *
+ *  Write a program that reads several transactions for the same ISBN. Write the sum of all the transactions that were read.
+ ***********************************************/
+void ExerciseNum22 (void)
+{
+	Sales_item book1, book2;
+
+	while (std::cin >> book1)
+	{
+		if (book2.isbn() == "")
+			book2 = book1;
+		else if (book2.isbn() != book1.isbn()) {
+			std::cout << "Transaction details: " << book2 << std::endl;
+			book2 = book1;
+		} else
+			book2 += book1;
+	}
+}
+
+/********************************************//**
+ *  Exercise 1.23
+ *
+ *  Write a program that reads several transactions and counts how many transactions occur for each ISBN.
+ ***********************************************/
+void ExerciseNum23 (void)
+{
+	int nTransactions = 0;
+	Sales_item book1, book2;
+
+	while (std::cin >> book1) {
+		if ((book2.isbn() != book1.isbn()) && (book2.isbn() != "")) {
+			std::cout << nTransactions << " transactions for ISBN: " << book1.isbn() << std::endl;
+			nTransactions = 0;
+		}
+		book2 = book1;
+		nTransactions++;
+	}
+}
+
+/********************************************//**
+ *  Exercise 1.24
+ *
+ *  Test the previous program by giving multiple transactions representing multiple ISBNS. The records for each ISBN should be grouped together.
+ ***********************************************/
+void ExerciseNum24 (void)
+{
+	int nTransactions = 0;
+	Sales_item book1, book2;
+
+	while (std::cin >> book1) {
+		if ((book2.isbn() != book1.isbn()) && (book2.isbn() != "")) {
+			std::cout << nTransactions << " transactions for ISBN: " << book1.isbn() << std::endl;
+			nTransactions = 0;
+		}
+		book2 = book1;
+		nTransactions++;
+	}
+}
+
+/********************************************//**
+ *  Exercise 1.25
+ *
+ *  Using the Sales_item.h header from the Web site, compile and execute the bookstore program presented in this section.
+ ***********************************************/
+void ExerciseNum25 (void)
+{
+	Sales_item total;
+	if (std::cin >> total) {
+		Sales_item trans;
+		while (std::cin >> trans) {
+			if (total.isbn() == trans.isbn()) {
+				total += trans;
+			} else {
+				std::cout << total << std::endl;
+				total = trans;
+			}
+		}
+		std::cout << total << std::endl;
+	} else {
+		std::cerr << "No data?!" << std::endl;
+	}
 }
 
 /********************************************//**
