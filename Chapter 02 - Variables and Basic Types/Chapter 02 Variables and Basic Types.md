@@ -134,6 +134,130 @@ The words `true` and `false` are literals of type `bool`.
 
 The word `nullptr` is a pointer literal. Pointers will be expanded in the following chapters.
 
+## 2.2 Variables
+
+A **variable** provides the programmer with named storage that the programs can manipulate. Each variable has an associated type which determines:
+
+- The size.
+- The layout of the memory of the variable.
+- The range of values that can be stored within the variable.
+- The set of operations that can be applied to the variable.
+
+C++ programmers tend to refer to **variables** as **variables** or **objects**.
+
+### 2.2.1 Variable definitions
+
+A simple **variable definition** consists of a type specified (the name of the type), followed by a list of one or more variable names separated by commas, optional initialization for each of those variables and ends with a semicolon. Variable definition examples are shown in the following example:
+
+```cpp
+int sum, value = 0,
+	units_sold = 10;
+```
+
+### 2.2.2 Variable initialization
+
+An object which is initialized gets the specified initialization value at the moment the object is created, this makes it possible to initialize a variable to the value of one defined earlier in the same definition. Examples are shown below:
+
+```cpp
+int a = 10, b = 10 * a;
+```cpp
+
+It is important to remember that an initialization is not an assignment, an initialization happens when a variable is given a value at the moment it is created, assignment obliterates the current value of an object and replaces its value with a new one. 
+
+Another way to initialize variables is by using parentheses:
+
+```cpp
+int a(10), b(10*a);
+```
+
+#### 2.2.2.1 List initialization
+
+C++ defines several forms of initialization, one form of initialization which includes a generalized use of curly braces is usually referred to as **list initialization**:
+
+```cpp 
+int units_sold = {0};
+int units_sold{0};
+```
+
+Both statements above define an `int` variable named `units_sold` and initialize it to `0`. This form of initialization has one important property: The compiler willl not let us unitialize variables of built-in type if the initialization might lead to loss of information:
+
+```cpp
+long double ld = 3.14159;
+int a{ld}, b = {ld}; // The compiler will give an error.
+int a(ld), b = ld; // This is OK, the value will be truncated and both variables will have a value of three.
+```
+
+#### 2.2.2.2 Default initialization
+
+When a value is defined and there is no initialization, we say the variable is **default initialized**, these variables are given a default value which depends on the type of the variable and where the variable is defined.
+
+The value of an object of built-in type that is default initialized depends on where the variable is defined, if the variable is defined inside a function the value of the variable is undefined and this might cause problems, if the variable is defined outside any function the variable is initialized to zero (except for some exceptions which shall be covered in the next chapters).
+
+For objects that belong to a class, it is up to the class how default initialized objects of that class are handled, it is the class that defines the default initialization value. For example, the `string` class says that if we do not supply an initializer, the resulting `string` is the empty string `""`.
+
+### 2.2.3 Variable declarations and definitions
+
+C++ supports programs to be written in logical parts by using what is commonly known as separate **compilation**, separate compilation allows programs to be split into several files that can be compiled independently. This creates a new issue, we need a way to share code accross those files, code defined in one place might need to be used in another file.
+
+For this reason, C++ distinguishes between declarations and definitions:
+
+- A **declaration** makes a name known to the program, a file that wants to use a name defined elsewhere includes a declaration of that name. In the case of variables, a variable declaration includes the type and name of the variable. A variable can be declared as many times as the user wants.
+- A **definition** creates an entity, it is a declaration, in addition to specifying the name and type, it also allocates storage and may provide the variable with an initial value. A variable can be defined only once.
+
+To obtain a declaration one can use the `extern` keyword, without providing an initialization value, as follows:
+
+```cpp
+extern int j;	// Declares but does not define j
+int j;	// Declares and defines j.
+```
+
+Its usually a good practice to define objects near the point where the object is first used, doing this improves readability and makes it easier to find the definition of variables. Some standards do not support these though.
+
+### 2.2.4 Identifiers
+
+**Identifiers** are sequence of characters that make up a name, they are case sensitive and can be composed of letters, digits and the underscore character. They have no limits in name length and they must begin with either a letter or an underscore. The C++ language reserves a group of names for its own use that can't be used as identifiers. These names can be found in the tables below.
+
+These are the C++ keywords:
+
+![C++ language keywods](z05IMAGE.png)
+
+There are the C++ alternative operator names:
+
+![C++ alternative operator names](z06IMAGE.png)
+
+The standard library also reserves a group of names. Some other rules related to identifiers are that they can't contain two consecutive underscores, they can't begin with an underscored followed immediately by an uppercase letter and identifiers defined outside a function can't begin with an underscore.
+
+### 2.2.5 Scope of a name
+
+A given name can be reused to refer to different entities at different points in a program. A **scope** is a part of the program in which a name has a particular meaning. Most scopes in C++ are delimited by curly braces. Names are visible from the point where they are declared until the end of the scope in which the declaration appears.
+
+In the following example:
+
+```cpp
+int main ()
+{
+	int sum = 0;
+	for (int val = 0; val <= 5; val++)
+		sum += val;
+	return 0
+}
+```
+
+The name `main` has a global scope, it can be accesible from anywhere in the program. The name `sum` can only be used within the body of main, and the name `val` can only be used within the body of the for loop in the function `main`.
+
+Scopes can be nested, the contained scope is referred to as **inner scope** and the containing scope is **outer scope**. In the following example:
+
+```cpp
+int global;			// Global has global scope.
+int main () {
+	int unique = 0; // Scope is limited to the function body of main.
+	int global;		// Hides global variable, creates local variable named global. Scope is limited to the function body of main.
+	::global;		// Using the scope operator to refer to the variable named global with global scope.
+}
+```
+
+While it is usually a very bad practice to define local variables with the same name as global variables, this program serves to explain inner and outer scopes.
+
 # Other Concepts and Notes
 
 **Unicode**: A standard for representing characters used in essentially any natural language.
@@ -172,3 +296,14 @@ The result of the expression above depends on the number of bits that an int has
 ```
 
 is technically speaking the literal 30 and the minus operand, which negates the value (the literal).
+
+**Object**: Most generally, an object is a region of memory that can contain data and has a type. There are different usages for the term object depending on the programmer but this is the most commonly used acception. In this text we will use the term object regardless of whether the object has a built-in or class type, is named or unnamed, or can be read or written.
+
+**Static typing**: C++ is a statically typed language, which means that types are checked at compile time, this process is known as type checking. The compiler checks whether the operations we write are supported by the types we use, and if not supported it generates an error message. A consequence of static typing is that every entity we use must be known to the compiler.
+
+**Conventions for variable names**: Following these conventions can improve the readability of a program, and they are most useful when followed consistently:
+
+- An identifier should give some indication of its meaning.
+- Variable names normally are lowercase.
+- Classes we define usually begin with an uppercase letter.
+- Identifiers with multiple words should visually distinguish each word.
