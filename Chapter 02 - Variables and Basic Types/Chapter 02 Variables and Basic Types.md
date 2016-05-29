@@ -258,6 +258,220 @@ int main () {
 
 While it is usually a very bad practice to define local variables with the same name as global variables, this program serves to explain inner and outer scopes.
 
+## 2.3 Compound types
+
+A **compund type** is a type defined in terms of another type, **references** and **pointers** are examples of compound types.
+
+### 2.3.1 References
+
+In this section we explain **lvalue reference**, not to be mistaken with **rvalue reference** which will be explained in later chapters. When we speak about references we usually refer to **lvalue references**.
+
+A **reference** is an alternative name for an existing object, it's not an object, it's like an alias. A reference can be defined with the ampersand, `&` character like this:
+
+```cpp
+int value;
+int &ref_value_0 = value;	// Now ref_value is an alternative name for the variable value.
+int &ref_value_1 = value, &ref_value_2 = value; // Defining multiple references.
+int value_3 = 1, &ref_value_3 = value; // Defining a variable and then a reference.
+```
+
+When a reference is initialized, the reference is bounded to it's initializer, there is no way to rebind a reference so references must be initialized. Also, a reference can't be an initializer of another reference.
+
+The following code will cause the compiler to raise an error.
+
+```cpp
+int val = 0;
+int &ref_value_0 = val;
+int &ref_value_1; // ERROR: A reference must be initialized.
+int &ref_value_2 = ref_value_0; // ERROR: A reference can't be the initializer to another reference.
+```
+
+When assigning a value to a reference, we are assigning the value to the object bound to the reference, the same behaviour applies when fetching the value of a reference or when initializing a variable using a reference. For example:
+
+```cpp
+int val = 0;
+int &ref_val = val;
+ref_val++;	// Same as val++
+```
+
+A reference has to be bound to an object, the initializer of a reference can't be, for example, a literal expression, and, with a few exceptions, the type of the reference and the type of the variable the reference is bound to must match exactly.
+
+```cpp
+int &ref_value_0 = 10;  // ERROR: A reference can't be bound to a literal expression.
+float f_val = 10.325;
+int &ref_value_1 = f_val; // ERROR: The type of the reference and the type of the object do not match.
+```
+
+### 2.3.2 Pointers
+
+A **pointer** is another compound type that basically points to another type. Pointers are objects that are used for indirect access to another objects.
+
+Pointers are defined using the star, `*`, character like this:
+
+```cpp
+int *a;           // Defining a pointer int.
+int *b, *c;	// Defining two pointers to int.
+int d, *e;	      // Defining an int variable and a pointer to int.
+```
+
+A pointer holds the address of an object, to retrieve the value of an object we use the ampersand character, `&` like this:
+
+```cpp
+int ival = 42;
+int *pt_val = &ival;  // Now pt_val contains the address to the ival variable.
+int &ref_val = ival;
+int *pt_ref_val = &ref_val;  // ERROR: A reference is not an object.
+```
+
+When used in this way, the `&` character is called the **address-of operator**.
+
+With a few exceptions, the type of the pointer and the object it points to must match, the reason for this is because the type of pointer is used to infer the type of the object it points to, if a pointer points to an object of another type, the operations on the object pointed will fail.
+
+```cpp
+int val = 0;
+float *pt_val = &val; // ERROR: Will not compile because initializer is not a pointer to float.
+```
+
+It is not possible to assign a pointer the value of a object, for example the following example will fail:
+
+```cpp
+int val = 12345;
+int *pt_val = val; // ERROR: Can assign a pointer the value of an int.
+```
+
+#### 2.3.2.1 Null pointers
+
+**Null pointers** are pointers that do not point to any object, it is a good practice that a pointer is not `null` before attempting to use it. The recommended approach to obtain a null pointer is using the literal `nullptr`, for example:
+
+```cpp
+int *ptr = nullptr;
+double *ptr = nullptr;
+```
+
+As the examples above show, the literal `nullptr` can be converted to pointers of any type.
+
+There are other ways to obtain the a NULL pointer, however these are deprecated in C++, it is common to see them in C programs though.
+
+```cpp
+int *p2 = 0;
+int *p2 = NULL; // For this you will need to include stdarg.h header from C or cstdlib.
+```
+
+#### 2.3.2.2 Values of a pointer
+
+The address stored in a pointer can be any of the following:
+
+1. An address to an object.
+2. An address to the location just inmmediately past the end of an object.
+3. A **null pointer**, indicating that the pointer doesn't point to any object.
+4. An invalid address, values other than the three above are invalid values.
+
+It's important to ensure that pointers are valid, when using invalid pointers the behaviour is undefined and it is unlikely that the compiler will detect any errors. Although 2. and 3. are valid pointers, we can't use them to access the object they are supposedly pointing to, as they are not pointing to any object and therefore the behaviour is undefined too.
+
+#### 2.3.2.3 Using pointers to access an object
+
+When a pointer is valid and it points to an object, we can use the star character, `*`, in this way to access the object which the pointer points to:
+
+```cpp
+int val = 42;
+int *pt_val = &val;
+cout << *p;            // Will print the val.
+```
+
+When used in this fashion, the star character is known as the **dereference operator**.
+
+Dereferencing a pointer returns the object it points to, we can, for example, assign a new value to an object through a pointer like this:
+
+```cpp
+int val = 42;
+int *p = &val;
+*p = 30; // The value of the variable val has changed.
+```
+
+#### 2.3.2.4 The importance of initializing pointers
+
+Using uninitialised pointers will lead to undefined behaviour when accessing the supposed object that the pointer points to, and there is no way to distinguish between valid addresses and invalid addresses from pointers that have not been initialized.
+
+For this reason it's important to initialize pointers, if the object that pointer will point to has not been defined it is advisable to initialize the pointer to `nullptr`, this way the program will know whether the program points to an object or not.
+
+```cpp
+int *p1;
+*p1 = 0;  // Will lead to undefined behaviour.
+```
+
+#### 2.3.2.5 Using a pointer as a condition
+
+A pointer with a value equal to `nullptr` will evaluate as `false`, a pointer with a different value will evaluate to `true`, even if the pointer doesn't point to an object.
+
+```cpp
+int val = 0;
+int *pt = &val;
+
+if (pt); // Will evaluate to true.
+
+pt = nullptr;
+
+if (pt); // WIll evaluate to false.
+```
+
+When testing for equality or inequality between pointers, two pointers are equal when they point to the same location and they are unequal otherwise.
+
+```cpp
+int val_0 = 0;
+int *pt_val_0 = &val_0, *pt_val_1 = &val_0;
+
+if (pt_val_0 == pt_val_1); // Will evaluate to true.
+
+pt_val_1 = nullptr;
+
+if (pt_val_0 == pt_val_1); // Will evaluate to false.
+```
+
+The behaviour when evaluating invalid pointers is undefined.
+
+#### 2.3.2.6 Pointers to void
+
+A **pointer to void**, `void*`, can point to an object of any type, it will contain an address but the type of the object it points to is unknown.
+
+```cpp
+float fval = 3.14;
+int ival = 3;
+void *pt = &fval; // Valid.
+pt = &ival; // Also valid.
+```
+
+A pointer of this type can't be used to access the object, as the type of the object is unknown and it's the type that determines what kind of operations can be performed with an object.
+
+One of the usages of pointers to void is to deal with memory as memory, rather than as a object.
+
+#### 2.3.2.7 Pointers to pointers
+
+There are no limits in the number of type modifiers that can be applied to a declarator. We can apply this to pointer as they are objects after all, so this means that they have an address in memory, an address that can be stored in another pointer, thus creating a pointer to pointer, we could continue the chain endlessly.
+
+In the following code:
+
+```cpp
+int ival = 1024;
+int *pi = &ival;
+int **ppi = &pi;
+```
+
+Dereferencing `ppi`, a pointer to a pointer, returns a pointer, `pi`, and dereferencing this pointer will return the object of type `int`, `ival`. This graphic details the process:
+
+![Dereferencing pointers to pointers](z07IMAGE.png)
+
+#### 2.3.2.8 References to pointers
+
+Because pointers are objects, references can be bound to pointers, defining a reference of this kind can be a bit tricky, here is an example:
+
+```cpp
+int val = 40;
+int *p_val = &val;
+int *&p_val_ref = p_val;
+```
+
+References to pointers can be dereferenced and can be used in the same fashion as other types of references.
+
 # Other Concepts and Notes
 
 **Unicode**: A standard for representing characters used in essentially any natural language.
@@ -307,3 +521,32 @@ is technically speaking the literal 30 and the minus operand, which negates the 
 - Variable names normally are lowercase.
 - Classes we define usually begin with an uppercase letter.
 - Identifiers with multiple words should visually distinguish each word.
+
+**Symbols with different meanings**: There are some symbols, like for example the star and ampersand characters, that can be used as part of an expression or as a declaration, and in each of these scenarios they have different meanings.
+
+In particular, the star character in a declaration is used to define a pointer, and in an expression is used as a dereference operator.
+
+In the case of the ampersand character, in a declaration is used to define a reference, and in an expression is used as a address-of operator.
+
+**Different ways of declaring variables**: Many programmers are confused between the base type, the declarator and the type modification that may be part of the declarator, for example in the following code:
+
+```cpp
+int a, *b, &c = a;
+```
+
+We define a variable named `a` of type `int`, a pointer to `int` named `b` and a reference of type `int` bounded to `a`. There are two common styles to define variables of pointer or reference type:
+
+- The first type emphasizes that the variable is a pointer or a reference, and the type modifier is put adjacent to the identifier:
+
+```cpp
+int *a, *b;
+```
+
+- The second type emphasizes that the variable is a compound type, and in this case the type modifier is adjacent to the type:
+
+```cpp
+int* a;
+int* b;
+```
+
+Both styles are commonly used, what the programmer needs to do is adopt one style and be consistent with it.
