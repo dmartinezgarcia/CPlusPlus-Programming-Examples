@@ -160,7 +160,7 @@ An object which is initialized gets the specified initialization value at the mo
 
 ```cpp
 int a = 10, b = 10 * a;
-```cpp
+```
 
 It is important to remember that an initialization is not an assignment, an initialization happens when a variable is given a value at the moment it is created, assignment obliterates the current value of an object and replaces its value with a new one. 
 
@@ -472,6 +472,178 @@ int *&p_val_ref = p_val;
 
 References to pointers can be dereferenced and can be used in the same fashion as other types of references.
 
+## 2.4 The `const` type qualifier
+
+To make a variable unchangeable we use the type qualifier `const`, this way assignments or any other operation that would make the value of the variable change will cause an error, for example:
+
+```cpp
+const int a = 10;
+a = 5;	// ERROR: Attempting to modify a constant object.
+```
+
+An object with a `const` type qualifier can use some of the operations of its non-constant version, only those that won't change the object, for example:
+
+```cpp
+const int a = 10;
+
+if (a); // Will work and will evaluate to true.
+
+a++; // ERROR: Will not work because the operation changes the object.
+```
+
+An object declared with the type qualifier `const` must be initialized, as once it has been declared, it can't be changed. During the initialization, it doesn't matter if the object is `const` or not, operation that change the object can be used during the initialization:
+
+```cpp
+int a = 10;
+const int b = a; // Will work because we are assigning a value during the initialization.
+```
+
+### 2.4.1 Scope of `const` objects, using the `extern` keyword
+
+By default, objects with the `const`type qualifier initialized with a compile-time constant, like for example the following code:
+
+```cpp
+const int a = 0;
+```
+have a **scope local to the file**. When defining a variable with the same name and the `const` type qualifier is like if we had defined different variables in each file.
+
+What the compiler usually does with these type of objects is replace the name of the variable with its value. In order to do this in multiple files, the files where the object has not been defined need to have access to the initializer of the object.
+
+To solve the issue above, we can use the `extern` keyword to define a single instance of a `const` object, in both the definition and in the declaration:
+
+```cpp
+// In the first file, source file, define and initialize the const object with the extern keyword.
+extern const int shared_const = 1024;
+// In the first file, header file, write the declaration using the extern keyword.
+extern const int shared_const;
+// In the rest of files that include this header file, the value used will be the value defined in the source file.
+```
+
+In a way, this behaviour is similar to defining a constant macro using the preprocessor in C:
+
+```c
+const int value = 0;
+#define VALUE 0
+```
+
+### 2.4.1 References to `const` objects
+
+References can be used with objects defined with the `const` type qualifier, to do so we create **references to `const`**. This type of reference can't be used to change the object bound to the reference.
+
+```cpp
+const int a = 0;
+const int &ref_a = a; // Here we initialize a reference to const.
+ref_a = 1; // ERROR: Will fail because a reference to const can't be used to change the object it's bound to.
+```
+
+Contrary to other references, a **reference to `const`** can be bound to any of the following:
+
+1. An object not defined with the `const` type qualifier.
+
+	A reference to `const` can be bounded to an object that hasn't been defined with the `const` type qualifier, but the operations we can do on that object through this reference are restricted to operations that won't change the object.
+	
+	```cpp
+	int a = 0;
+	const &r_a = a; // This is a reference to const that is bounded to a non-const object.
+	r_a++; // ERROR: This is not a valid operation, can't change the value of the bounded object through a reference to const.
+	a++; // This is a valid operation.
+	```
+
+2. A literal expression or a more general expression.
+
+	The following are examples of this type of initialization:
+	
+	```cpp
+	const int &r1 = 2;
+	const int &r2 = 2 * 2;
+	```
+
+3. Any expression that can be converted to the type of the reference.
+
+	This is an example of this type of initialization:
+	
+	```cpp
+	float fval = 3.14;
+	const int &ival = fval; // This is a valid reference to const.
+	```
+
+	What the compiler really does with the code above is create a temporary object like this, and then bound the reference to `const` to that temporary object:
+	
+	```cpp
+	const int fval_temp = fval;
+	const int &ival = fval_temp;
+	```
+
+### 2.4.2 Pointers and the `const` type qualifier
+
+In this section we will explain the `const` type qualifier applied to pointers.
+
+#### 2.4.2.1 Pointers to `const` objects
+
+A **pointer to `const`** is one that can't be used to change the object it points to. Like **references to `const`**, this type of pointers only restrict the operations we can do on the object through the pointer.
+
+A **pointer to `const`** can be initialized in any of the following ways:
+
+1. With an address of a `const` object, only pointers to `const` can store such kind of address.
+
+	The following code is an example of this initialization:
+
+	```cpp
+	const int a = 0;
+	const int *ptr_0 = &a; // Pointer to const pointing to a object.
+	int *ptr_1 = &a; // ERROR: Plain pointer to a const object.
+	```
+
+2. With an address to an object without the `const` type qualifier:
+
+	In this case, we won't be able to modify the object that the pointer is pointing to through the use of the pointer.
+	
+	```cpp
+	int val = 0;
+	const int *val = &val;
+	```
+
+#### 2.4.2.2 Constant pointers
+
+Because pointer are objects, the `const` type qualifier can be applied to them, thus creating what we will define as **constant pointers**. The same rules as other constant objects apply to constants pointers, e.g. a constant pointer must be initialized and once it has been initialized the address it contains can't be changed.
+
+We define a **constant pointer** by putting the `const` type qualifier after the star character, `*`, like this:
+
+```cpp
+int val = 0;
+int *const a = &val; // This is a constant pointer to int.
+const int *const b = &val; // This is a constant pointer to const int.
+```
+
+A **constant pointer** doesn't tell whether the object it points to can be modified through the use of this pointer, this depends on the type qualifier applied to the object it's supposed to, specified in the definition of the variable.
+
+### 2.4.3 Top-level and low-level `const`
+
+The term **top-level `const`** indicates that an object itself is constant, it can appear in objects of any type.
+
+The term **low-level `const`** appears only in compound type definitions, such as pointers and references.
+
+#### 2.4.3.1 Top-level and low-level `const` applied to pointers
+
+The term **top-level `const`** is used to indicate that a pointer is `const`, this is, a **constant pointer**.
+
+The term **low-level `const`** is used to indicate that a pointer points to a `const` object, this is, a **pointer to `const`**.
+
+Notice that a pointer can have **both top-level and low-level `const`**, this is, a **constant pointer to `const`**.
+
+### 2.4.4 The `constexpr` keyword
+
+By using the `constexpr` type qualifier instead of the `const` type qualifier we ask the compiler to verify that a variable is a constant expression and we also make it have **top-level `const`**.
+
+```cpp
+constexpr int a = 20; // Compiler will check that 20 is a constant expression that can be evaluated at compile time.
+constexpr int b = a * 58// // Compiler will check that a * 58 is a constant expression that can be evaluated at compile time.
+constexpr int c = size(); // Compiler will check that the size function is a constexpr function, and that it can be evaluated at compile time.
+constexpr int *d = nullptr; // Compiler will check that nullptr is a constant expression that can be evaluated at compile time. This is a constant pointer, and not a pointer to const, this is because constexpr gives the object top-level const.
+```
+
+Only types that can have literal values can be used with the `constexpr` type qualifier, for example the arithmetic types, the reference types and the pointer types can be used with the `constexpr` type qualifier, but for example the `string` type can't.
+
 # Other Concepts and Notes
 
 **Unicode**: A standard for representing characters used in essentially any natural language.
@@ -550,3 +722,17 @@ int* b;
 ```
 
 Both styles are commonly used, what the programmer needs to do is adopt one style and be consistent with it.
+
+**Reading definitions from right to left**: It's useful to read definitions from right to left to understand their meaning, for example, think of the following:
+
+```cpp
+const int *const a = nullptr;
+```
+
+If we read from right to left we will deduce that `a` is a constant pointer to integer constant.
+
+```cpp
+int *&ref = 0;
+```
+
+If we read from right to left we will deduce that `ref` is a reference to pointer to integer.
