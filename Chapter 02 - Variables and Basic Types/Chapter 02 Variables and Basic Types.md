@@ -644,6 +644,128 @@ constexpr int *d = nullptr; // Compiler will check that nullptr is a constant ex
 
 Only types that can have literal values can be used with the `constexpr` type qualifier, for example the arithmetic types, the reference types and the pointer types can be used with the `constexpr` type qualifier, but for example the `string` type can't.
 
+## 2.5 Complications with types
+
+Complications with types can arise in two different ways:
+
+1. Some types are hard to spell, sometimes they are error-prone to write and a complicated type can obscure the purpose or meaning of the type.
+2. The other source of confusion is that sometimes it can be complicated to know the exact type we need without looking at the context of a program.
+
+### 2.5.1 Type aliases
+
+Type aliasing can solve the first issue we mentioned at the beginning of this section.
+
+A **type alias** is a synonym for another type, it is used to simplify otherwise complicated type definitions, making them easier to use.
+
+There are two ways to define a **type alias**:
+
+1. With the `typedef` keyword.
+
+	The following is an example of how to create a type alias with `typedef`:
+	
+	```cpp
+	typedef int integer_number; // Now integer_number is a synonym for int.
+	typedef const int const_integer_number; Now const_integer_number is a synonym for const int.
+	```
+	
+	Although typedef may seem like part of the declaration, we are not defining a variable when using typedef, we are defining a type alias.
+
+2. The second way is defining a type alias via an **alias declaration**.
+
+	To create an alias declaration, we use the `using` keyword in the following way:
+	
+	```cpp
+	using integer_number = int; // Now integer_number is a type alias for int.
+	using const_integer_number = const int; // Now const_integer_number is a type alias for const int.
+	```
+
+Once we define a type alias in any of the ways described above, we can use it like a normal type, for example:
+
+```cpp
+integer_number a = 0;
+const_integer_number b = 0;
+```
+
+### 2.5.2 The `auto` type specifier
+
+The `auto` type specifier helps us with the second issue mentioned at the beginning of this section.
+
+When we want to store an expression in a variable, to declare the variable we need the type of the expression, sometimes this can be difficult or even impossible to figure out. We can use the **`auto` type specifier** to let the compiler figure out the type for us, it will the deduce the type from the initializer, so variables with an `auto` type specifier must be initialized.
+
+In this case:
+
+```cpp
+auto a = b + c;
+```
+
+The type of `a` will be the type that the compiler deduces from the result returned by applying `+` to `b` and `c`.
+
+There are a few things to consider when using the `auto` type specifier:
+
+1. When using a reference as an initializer, the compiler will deduce the type from the object the reference is bound to.
+
+	For example in this code:
+	
+	```cpp
+	int a = 0;
+	int &b = a;
+	auto c = b; // The type of c will be int, which is the type of the object that reference b points to.
+	```
+2. The `auto` type qualifier ignores top-level consts of the initializer, if the type deduced must have a top-level const, it must be declared explicitly with the `const` type qualifier.
+
+	This is an example of the above:
+	
+	```cpp
+	const int a = 0;
+	auto b = a; // The variable b will be of type int, because top level consts are ignored.
+	const auto c = a; // The variable c will be of type const int, because int is the type deduced and a top-level const has been declared explicitly.
+	```
+	
+3. It is possible to create references to the `auto` deduced types.
+
+	This is an example of the above:
+	
+	```cpp
+	const auto &a = 0;
+	```
+
+### 2.5.2 The `decltype` type specifier
+
+The `decltype` type specifier helps us with the second issue mentioned at the beginning of this section.
+
+The type specifier `decltype` returns the type of it's operand, the compiler analyses the expression used as an operand but it doesn't evaluate it. This is useful when we want a variable to have the same type as an expression but we don't want that expression to initialize the variable.
+
+For example:
+
+```cpp
+decltype(f()) a = y; // The type of a will be the same as the return value of the function f().
+```
+
+It is important to note that contrary to the `auto` type specifier, the `decltype` specifier, when the operand is a variable, returns the type of that variable, including references and top-level `const`. 
+
+This said, it is important to note that the `decltype` is the *only* place where references are not treated as an alias of the object they are bound to.
+
+```cpp
+const int a = 0, &b = 42;
+decltype(a) c = 1; // Variable c will be of type const int, top level const is included.
+decltype(b) d = 2; // Variable d will be a reference to const int, reference is included.
+```
+
+Generally speaking, `decltype` type specifier returns a a reference type for operands that return objects that can stand on the left-hand side of the assignment, for example:
+
+```cpp
+int a = 0, *ptr_a = &a, &ref_a = a;
+decltype(ref_a + 0) b; // The operand ref_a + 0 is an int, so b will be of type int.
+decltype(*ptr_a) c; // The operand 
+```
+
+Enclosing the operand, when it is a variable, of the `decltype` type specifier always returns a reference:
+
+```cpp
+int a = 0;
+decltype((a)) b = a; // This is a reference to int, because the operand is a variable and it is enclosed in parentheses.
+```
+
 # Other Concepts and Notes
 
 **Unicode**: A standard for representing characters used in essentially any natural language.
