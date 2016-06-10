@@ -766,6 +766,60 @@ int a = 0;
 decltype((a)) b = a; // This is a reference to int, because the operand is a variable and it is enclosed in parentheses.
 ```
 
+# 2.6 Defining our own Data Structures
+
+A **data structure** is a way to group together related data elements and a strategy for using those data.
+
+In C++, we define our own data types by defining **classes** and **structures**.
+
+## 2.6.1 Defining structures
+
+A **structure** is a data structure that groups some data elements, it's almost the same as a **class*, which we will see in later chapters.
+
+To define an structure you use the `struct` keyword, like this:
+
+```cpp
+struct {struct_name}
+{
+	/* Members of the structure, structure body. */
+	{type_0} {var_name_0};
+	{type_1} {var_name_1};
+	...
+} {variable_names};
+```
+
+The structure body defines its **members**, each of these define the contents of the objects of this type of structure, each object has it's own copy of the members, and changing the members in one object doesn't change the members in the other objects.
+
+The names inside the structure define a new scope, they must be unique but these same names can be reused outside of the structure.
+
+Although we can define the structure it is a bad idea to define the objects at the same time, it's usually better to do it this way:
+
+```cpp
+struct example_struct
+{
+	int example_int;
+	float example_float;
+};
+
+example_struct example_variable;
+```
+
+It is possible to initialize the members of an structure with an initializer, however we are limited in the way we can do so, there are only two possible ways:
+
+1. Using the `=` sign.
+2. Using list initialization with curly braces, `{}`.
+
+If the members of an structure are not initialized, they are initialized using the default constructor for that object.
+
+In order to access the members of a structure, you use the **dot operator**, like in the following example:
+
+```cpp
+example_struct.example_int;
+example_struct.example_float;
+```
+
+Classes also have scope, classes are usually defined in header files to ensure that the class definition used is the same in every file that needs of this class definition, and tipically the header file takes its name from the name of the class it defines, for example the `string` header takes its name from the main class it defines, the `string`.
+
 # Other Concepts and Notes
 
 **Unicode**: A standard for representing characters used in essentially any natural language.
