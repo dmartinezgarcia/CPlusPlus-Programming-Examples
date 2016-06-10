@@ -17,14 +17,37 @@
 					<Add option="-g" />
 				</Compiler>
 			</Target>
+			<Target title="Chapter_02_-_Variables_and_Basic_Types">
+				<Option output="bin/Chapter_02_-_Variables_and_Basic_Types/C++_Programming_Examples" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Chapter_02_-_Variables_and_Basic_Types/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option projectCompilerOptionsRelation="1" />
+				<Compiler>
+					<Add option="-std=c++11" />
+					<Add option="-g" />
+				</Compiler>
+			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="../../Chapter 01 - Getting Started/Chapter 01 - Getting Started.md" />
-		<Unit filename="../../Chapter 01 - Getting Started/Sales_item.h" />
-		<Unit filename="../../Chapter 01 - Getting Started/main.cpp" />
+		<Unit filename="../../Chapter 01 - Getting Started/Chapter 01 - Getting Started.md">
+			<Option target="Chapter_01_-_Getting_Started" />
+		</Unit>
+		<Unit filename="../../Chapter 01 - Getting Started/Sales_item.h">
+			<Option target="Chapter_01_-_Getting_Started" />
+		</Unit>
+		<Unit filename="../../Chapter 01 - Getting Started/main.cpp">
+			<Option target="Chapter_01_-_Getting_Started" />
+		</Unit>
+		<Unit filename="../../Chapter 02 - Variables and Basic Types/Chapter 02 Variables and Basic Types.md">
+			<Option target="Chapter_02_-_Variables_and_Basic_Types" />
+		</Unit>
+		<Unit filename="../../Chapter 02 - Variables and Basic Types/main.cpp">
+			<Option target="Chapter_02_-_Variables_and_Basic_Types" />
+		</Unit>
 		<Unit filename="../../Template/main.cpp">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
