@@ -876,9 +876,12 @@ void ExerciseNum38 (void)
  *    return 0;
  *  }
  ***********************************************/
+//struct Foo { }
 void ExerciseNum39 (void)
 {
-
+    /*
+    It will say something about a missing semicolon.
+    */
 }
 
 /********************************************//**
@@ -888,7 +891,12 @@ void ExerciseNum39 (void)
  ***********************************************/
 void ExerciseNum40 (void)
 {
-
+    struct sales_data_t
+    {
+        std::string book_no;
+        unsigned int units_sold = 0;
+        double revenue = 0;
+    };
 }
 
 /********************************************//**
@@ -898,7 +906,7 @@ void ExerciseNum40 (void)
  ***********************************************/
 void ExerciseNum41 (void)
 {
-
+    /* No purpose, no new concepts introduced. */
 }
 
 /********************************************//**
@@ -908,7 +916,7 @@ void ExerciseNum41 (void)
  ***********************************************/
 void ExerciseNum42 (void)
 {
-
+    /* No purpose, no new concepts introduced. */
 }
 
 /********************************************//**
