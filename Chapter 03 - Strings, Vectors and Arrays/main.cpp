@@ -22,6 +22,12 @@ void ExerciseNum17 (void);
 void ExerciseNum18 (void);
 void ExerciseNum19 (void);
 void ExerciseNum20 (void);
+void ExerciseNum21 (void);
+void ExerciseNum22 (void);
+void ExerciseNum23 (void);
+void ExerciseNum24 (void);
+void ExerciseNum25 (void);
+void ExerciseNum26 (void);
 
 typedef void (*Exercise) (void);
 // Fill the array as you add exercises.
@@ -46,7 +52,13 @@ Exercise Exercises[] =
     ExerciseNum17,
     ExerciseNum18,
     ExerciseNum19,
-    ExerciseNum20
+    ExerciseNum20,
+    ExerciseNum21,
+    ExerciseNum22,
+    ExerciseNum23,
+    ExerciseNum24,
+    ExerciseNum25,
+    ExerciseNum26
 };
 
 #include <stdio.h>
@@ -202,24 +214,6 @@ void ExerciseNum13 (void)
 }
 
 /********************************************//**
- *  Exercise 3.13
- *
- *  How many elements are there in each of the following vectors? What are the values of the elements?
- *
- *  a) vector<int> v1;
- *  b) vector<int> v2(10);
- *  c) vector<int> v3(10, 42);
- *  d) vector<int> v4{10};
- *  e) vector<int> v5{10, 42};
- *  f) vector<string> v6{10};
- *  g) vector<string> v7{10, "hi"};
- ***********************************************/
-void ExerciseNum13 (void)
-{
-    /* This is exercise 13. */
-}
-
-/********************************************//**
  *  Exercise 3.14
  *
  *  Write a program to read a sequence of ints from cin and store those values in a vector.
@@ -290,6 +284,101 @@ void ExerciseNum19 (void)
 void ExerciseNum20 (void)
 {
     /* This is exercise 20. */
+}
+
+/********************************************//**
+ *  Exercise 3.21
+ *
+ *  Redo exercise 3.16 with iterators.
+ ***********************************************/
+void ExerciseNum21 (void)
+{
+    /* This is exercise 21. */
+}
+
+/********************************************//**
+ *  Exercise 3.22
+ *
+ *  Revise the loop that printed the first paragraph in text to instead change the elements in text that correspond to the first paragraph to all uppercase. After you've updated text, print its contents.
+ ***********************************************/
+void ExerciseNum22 (void)
+{
+    /* This is exercise 22. */
+}
+
+/********************************************//**
+ *  Exercise 3.23
+ *
+ *  Write a program to create a vector with ten int elements. Using an iterator, assign each element a value that is twice the current value. Test your program by printing the vector.
+ ***********************************************/
+void ExerciseNum23 (void)
+{
+    /* This is exercise 23. */
+}
+
+/********************************************//**
+ *  Exercise 3.24
+ *
+ *  Redo exercise 3.20 using iterators.
+ ***********************************************/
+void ExerciseNum24 (void)
+{
+    /* This is exercise 23. */
+}
+
+/********************************************//**
+ *  Exercise 3.24
+ *
+ *  Redo exercise 3.20 using iterators.
+ ***********************************************/
+void ExerciseNum24 (void)
+{
+    /* This is exercise 24. */
+}
+
+/********************************************//**
+ *  Exercise 3.25
+ *
+ *  Rewrite the following program using iterators instead of subscripts.
+ *
+ *      vector<unsigned> scores(11, 0);
+ *      unsigned grade;
+ *      while (cin >> grade)
+ *      {
+ *          if (grade <= 100)
+ *          {
+ *              ++scores[grade/10];
+ *          }
+ *      }
+ ***********************************************/
+void ExerciseNum25 (void)
+{
+    /* This is exercise 25. */
+}
+
+/********************************************//**
+ *  Exercise 3.26
+ *
+ *  In the binary search program below, why did we write `mid = beg + (end - beg) / 2;` instead of `mid = (beg + end) / 2;`.
+ *
+ *      auto beg = text.begin(), end = text.end();
+ *      auto mid = text.begin() + (end - beg) / 2;
+ *      while (mid != end && *mid != sought)
+ *      {
+ *          if (sought < *mid)
+ *          {
+ *              end = mid;
+ *          }
+ *          else
+ *          {
+ *              beg = mid + 1;
+ *          }
+ *          mid = beg + (end - beg) / 2;
+ *      }
+ ***********************************************/
+void ExerciseNum26 (void)
+{
+    /* This is exercise 26. */
 }
 
 /********************************************//**

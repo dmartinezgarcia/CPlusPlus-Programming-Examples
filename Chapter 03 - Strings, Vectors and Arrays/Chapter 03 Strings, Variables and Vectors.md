@@ -504,6 +504,155 @@ If the elements have differing values, then the relationship between the vector 
 
 Two vectors can be compared only if the elements in those vectors can be compared, those whose operations include the equality and relational operators.
 
+## 3.4 Iterators
+
+There is a more general mechanism of accessing members of container, such as a `vector`, and this mechanism is the use of **iterators**. 
+
+Iterators give us **indirect access** to an object, just like pointers, they have operations to move from one element to another and as with pointers, an iterator may be valid or invalid:
+
+- A valid iterator denotes an element or a position one past the last element in a container.
+- All other iterators are invalid.
+
+### 3.4.1 Fetching iterators to the first and last elements
+
+Types that have iterators have methods that return iterators, for example the **`begin`** method and the **`end`** method.
+
+The `begin` method returns an iterator to the first element of the vector. 
+
+The `end` method returns an iterator positioned one past the last element, which is a non existent element usually used as a marker indicating that we have processed all the elements of the container, this element is usually known as the **off-the-end iterator** or **the end iterator**.
+
+```cpp
+vector<int> v{1, 2, 3, 4};
+auto iter1 = v.begin();
+auto iter2 = v.end();
+```
+
+If the container is empty, the iterator returned by both `begin` and `end` is the off-the-end operator. In general we don't care about the type an iterator has, reason why it's usually used in combination with `auto` or `decltype`.
+
+The type returned by `begin()` and `end()` depends on whether the object is `const` or not, if the object is `const` then these functions will return a `const_iterator` iterator, and if it's not `const` it will return an `iterator` iterator. 
+
+```cpp
+vector<int> v1;
+const vector<int> v2;
+auto v1_it = v.begin(); // Will return iterator.
+auto v2_it = v.begin(); // Will return const_iterator.
+```
+
+If we want to explicitly request a `const_iterator` we can use the `cbegin` and `cend` functions, these functions work the same way as `begin` and `end` but they return a `const_iterator` instead.
+
+```cpp
+vector<int> v1;
+auto v1_it = v.cbegin(); // Will return constant iterator.
+```
+
+### 3.4.2 Iterator types
+
+The types that have iterators usually define two types of iterator:
+
+- The `iterator` type, which can be used to read and write and can be accessed in the following way:
+
+```cpp
+vector<int>::iterator it; // it can read and write integers in the vector.
+string::iterator it2; // it2 can read and write characters in the string.
+
+```
+
+- The `const_iterator` type, behaves like a `const` pointer, it can be used to read but it can't be used write.
+
+```cpp
+vector<int>::const_iterator it3; // It can read integers in the vector.
+string::const_iterator it4; // It can read characters in the string.
+```
+
+It's obvious that with a `const` object we can only use the `const_iterator` iterator type.
+
+### 3.4.3 Operations on iterators
+
+Iterators support only a few operations, described in the following table:
+
+|Operation|Description|
+|:-------|:---------|
+|`*iter`|Returns a reference to the element denoted by the iterator `iter`.|
+|`iter->mem`|Dereferences `iter` and fetches the member named `mem` from the underlying element. This is equivalent to `(*iter).mem`.|
+|`++iter`, `iter++`|Increments `iter` to refer to the next element in the container.|
+|`--iter`, `iter--`|Decrements `iter` to refer to the previous element in the container.|
+|`iter1 == iter2`|Compares two iterators for equality.|
+|`iter1 != iter2`|Compares two iterators for inequality.|
+
+#### 3.4.3.1 Dereferencing an iterator
+
+We can only dereference iterators that denote an element, dereferencing off-the-end iterators or invalid iterators has undefined behaviour.
+
+```cpp
+string s = "Hello";
+auto iter = s.begin();
+*iter = *iter + 1; // The string will now be "Iello".
+```
+
+Similar to pointers, we can combine dereference operator with member access like this:
+
+```cpp
+vector<string> s;
+s->empty();
+```
+
+Which is the equivalent to this:
+
+```cpp
+vector<string> s;
+(*s).empty();
+```
+
+However, using the member access operator, `->`, is more convenient.
+
+In this case, we are dereferencing the iterator to access the object and then accessing the method `empty` of the `string` class to check whether the `string` `s` is empty or not.
+
+#### 3.4.3.2 Going forwards and backwards with an iterator
+
+We can advance or retreat from one element to another using the increment and decrement operators. An example of this is the following code:
+
+```cpp
+string s = "Hello";
+decltype(s.begin()) iter;
+for (iter = s.begin(); iter != s.end(); iter++)
+{
+  *it = '0';
+}
+```
+
+Notice that we use the inequality operator `!=` to check when we reach the end of the container, this is because is more common for classes to have this operator implemented than the `<` operator.
+
+#### 3.4.3.3 Inequality and equality of iterators
+
+Two operators are equal if they denote the same element or if they both are the off-the-end iterator of the same container, otherwise they are not equal.
+
+### 3.4.4 Iterators can be invalidated
+
+It's important to know that loops that use iterators should not add elements to the container to which the iterators where retrieved from, because these will become invalidated.
+
+An example of this is using the `push_back` with `vector` objects inside a loop that uses iterators.
+
+### 3.4.5 Iterator arithmetic
+
+There are other operations on iterators that are supported by some containers, such as `vector` or `string`. This support for operations that allow us to iterate multiple elements at a time and support for all the relational operators is known as **iterator arithmetic**.
+
+|Operation|Description|
+|:------|:-------|
+|`iter + n`|Adding an integral value `n` to an iterator creates an iterator that many elements forward within the container.
+|`iter - n`|Subtracting an integral value `n` from an iterator creates an iterator that many backwards within the container.
+|`iter += n`|Compound-assignment for iterator addition.|
+|`iter -= n`|Compound-assignment for iteration subtraction.|
+|`iter1 - iter2`|Subtracting two operators returns the distance between both operators. Valid iterators must be used and both must refer to the same container.|
+|`>, >=, <, <=`|Relational operators on iterators. Valid iterators must be used and both must refer to the same container.|
+
+#### 3.4.5.1 Relational operators
+
+One iterator is less than the other if it refers to an element that appears in the container before the one referred to by the other iterator, otherwise the iterator is greater.
+
+#### 3.4.5.2 Type returned when subtracting operators
+
+The result type when subtracting two operators is a *signed integral* type called `difference_type`, the result value is the amount of which we need to change the right iterator to get the left iterator. It is signed, because subtraction might have a negative result. 
+
 # Other terms and concepts
 
 **Direct initialization form**: A direct initialization omits the `=` character in the declaration, we use direct initialization when we initialize a variable from more than one value. See 3.2.1.1 for more information.
