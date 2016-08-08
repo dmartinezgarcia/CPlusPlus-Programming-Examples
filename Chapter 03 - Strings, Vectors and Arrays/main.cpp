@@ -28,6 +28,25 @@ void ExerciseNum23 (void);
 void ExerciseNum24 (void);
 void ExerciseNum25 (void);
 void ExerciseNum26 (void);
+void ExerciseNum27 (void);
+void ExerciseNum28 (void);
+void ExerciseNum29 (void);
+void ExerciseNum30 (void);
+void ExerciseNum31 (void);
+void ExerciseNum32 (void);
+void ExerciseNum33 (void);
+void ExerciseNum34 (void);
+void ExerciseNum35 (void);
+void ExerciseNum36 (void);
+void ExerciseNum37 (void);
+void ExerciseNum38 (void);
+void ExerciseNum39 (void);
+void ExerciseNum40 (void);
+void ExerciseNum41 (void);
+void ExerciseNum42 (void);
+void ExerciseNum43 (void);
+void ExerciseNum44 (void);
+void ExerciseNum45 (void);
 
 typedef void (*Exercise) (void);
 // Fill the array as you add exercises.
@@ -58,7 +77,26 @@ Exercise Exercises[] =
     ExerciseNum23,
     ExerciseNum24,
     ExerciseNum25,
-    ExerciseNum26
+    ExerciseNum26,
+    ExerciseNum27,
+    ExerciseNum28,
+    ExerciseNum29,
+    ExerciseNum30,
+    ExerciseNum31,
+    ExerciseNum32,
+    ExerciseNum33,
+    ExerciseNum34,
+    ExerciseNum35,
+    ExerciseNum36,
+    ExerciseNum37,
+    ExerciseNum38,
+    ExerciseNum39,
+    ExerciseNum40,
+    ExerciseNum41,
+    ExerciseNum42,
+    ExerciseNum43,
+    ExerciseNum44,
+    ExerciseNum45
 };
 
 #include <stdio.h>
@@ -327,16 +365,6 @@ void ExerciseNum24 (void)
 }
 
 /********************************************//**
- *  Exercise 3.24
- *
- *  Redo exercise 3.20 using iterators.
- ***********************************************/
-void ExerciseNum24 (void)
-{
-    /* This is exercise 24. */
-}
-
-/********************************************//**
  *  Exercise 3.25
  *
  *  Rewrite the following program using iterators instead of subscripts.
@@ -379,6 +407,237 @@ void ExerciseNum25 (void)
 void ExerciseNum26 (void)
 {
     /* This is exercise 26. */
+}
+
+/********************************************//**
+ *  Exercise 3.27
+ *
+ *  Assuming txt_size is a function that takes no arguments and returns an int value, which of the following definitions are illegal? Explain why.
+ *
+ *      unsigned buf_size = 1024;
+ *      a) int ia[buf_size];
+ *      b) int ia[4 * 7 - 14];
+ *      c) int ia[txt_size()];
+ *      d) char st[11] = "fundamental";
+ ***********************************************/
+void ExerciseNum27 (void)
+{
+    /* This is exercise 27. */
+}
+
+/********************************************//**
+ *  Exercise 3.28
+ *
+ *  What are the values in the following arrays?
+ *
+ *      string sa[10];
+ *      int ia[10];
+ *      int main()
+ *      {
+ *          string sa2[10];
+ *          int ia2[10];
+ *      }
+ ***********************************************/
+void ExerciseNum28 (void)
+{
+    /* This is exercise 28. */
+}
+
+/********************************************//**
+ *  Exercise 3.29
+ *
+ *  List some of the drawbacks of using an array instead of a vector.
+ ***********************************************/
+void ExerciseNum29 (void)
+{
+    /* This is exercise 29. */
+}
+
+/********************************************//**
+ *  Exercise 3.30
+ *
+ *  Identify the indexing errors in the following code:
+ *
+ *      constexpr size_t array_size = 10;
+ *      int ia[array_size];
+ *      for (size_t ix = 1; ix <= array_size; ++ix)
+ *      {
+ *          ia[ix] = ix;
+ *      }
+ ***********************************************/
+void ExerciseNum30 (void)
+{
+    /* This is exercise 30. */
+}
+
+/********************************************//**
+ *  Exercise 3.31
+ *
+ *  Write a program to define an array of ten ints. Give each element the same value as its position in the array.
+ ***********************************************/
+void ExerciseNum31 (void)
+{
+    /* This is exercise 31. */
+}
+
+/********************************************//**
+ *  Exercise 3.32
+ *
+ *  Copy the array you defined in the previous exercise into another array. Rewrite your program to use vectors.
+ ***********************************************/
+void ExerciseNum32 (void)
+{
+    /* This is exercise 32. */
+}
+
+/********************************************//**
+ *  Exercise 3.33
+ *
+ *  What would happen if we did not initialize the scores array in this program:
+ *
+ *      unsigned int scores[11] = {};
+ *      unsigned grade;
+ *      while (cin >> grade)
+ *      {
+ *          if (grade <= 100)
+ *          {
+ *              ++scores[grade/10];
+ *          }
+ *      }
+ ***********************************************/
+void ExerciseNum33 (void)
+{
+    /* This is exercise 33. */
+}
+
+/********************************************//**
+ *  Exercise 3.34
+ *
+ *  Given that p1 and p2 point to elements in the same array, what does the following code do? Are there values of p1 or p2 that make this code illegal?
+ *
+ *      p1 += p2 - p1;
+ ***********************************************/
+void ExerciseNum34 (void)
+{
+    /* This is exercise 34. */
+}
+
+/********************************************//**
+ *  Exercise 3.35
+ *
+ *  Using pointers, write a program to set the elements in an array to zero.
+ ***********************************************/
+void ExerciseNum35 (void)
+{
+    /* This is exercise 35. */
+}
+
+/********************************************//**
+ *  Exercise 3.36
+ *
+ *  Write a program to compare two arrays for equality. Write a similar program to compare two vectors.
+ ***********************************************/
+void ExerciseNum36 (void)
+{
+    /* This is exercise 36. */
+}
+
+/********************************************//**
+ *  Exercise 3.37
+ *
+ *  What does the following program do?
+ *
+ *      const char ca[] = {'h', 'e', 'l', 'l', 'o'};
+ *      const char *cp = ca;
+ *      while (*cp)
+ *      {
+ *          cout << *cp << endl;
+ *          ++cp;
+ *      }
+ ***********************************************/
+void ExerciseNum37 (void)
+{
+    /* This is exercise 37. */
+}
+
+/********************************************//**
+ *  Exercise 3.38
+ *
+ *  In this section, we noted that it was not only illegal but meaningless to try to add two pointers. Why would adding two pointers be meaningless?
+ ***********************************************/
+void ExerciseNum38 (void)
+{
+    /* This is exercise 38. */
+}
+
+/********************************************//**
+ *  Exercise 3.39
+ *
+ *  Write a program to compare two strings. Now write a program to compare the values of two C-style character strings.
+ ***********************************************/
+void ExerciseNum39 (void)
+{
+    /* This is exercise 39. */
+}
+
+/********************************************//**
+ *  Exercise 3.40
+ *
+ *  Write a program to define two character arrays initialized from string literals. Now define a third character array to hold the concatenation of the two arrays. Use strcpy and strcat to copy the two arrays into the third.
+ ***********************************************/
+void ExerciseNum40 (void)
+{
+    /* This is exercise 40. */
+}
+
+/********************************************//**
+ *  Exercise 3.41
+ *
+ *  Write a program to initialize a vector from an array of ints.
+ ***********************************************/
+void ExerciseNum41 (void)
+{
+    /* This is exercise 41. */
+}
+
+/********************************************//**
+ *  Exercise 3.42
+ *
+ *  Write a program to copy a vector of ints into an array of ints.
+ ***********************************************/
+void ExerciseNum42 (void)
+{
+    /* This is exercise 42. */
+}
+
+/********************************************//**
+ *  Exercise 3.43
+ *
+ *  Write three different versions of a program to print the elements of ia. One version should use a range for to manage the iteration, the other two should use an ordinary for loop in one case using subscripts and in the other using pointers. In all three programs write all the types directly. That is, do not use a type alias, auto, or decltype to simplify the code.
+ ***********************************************/
+void ExerciseNum43 (void)
+{
+    /* This is exercise 43. */
+}
+
+/********************************************//**
+ *  Exercise 3.44
+ *
+ *  Rewrite the programs from the previous exercises using a type alias for the type of the loop control variables.
+ ***********************************************/
+void ExerciseNum44 (void)
+{
+    /* This is exercise 44. */
+}
+
+/********************************************//**
+ *  Exercise 3.45
+ *
+ *  Rewrite the programs again, this time using auto.
+ ***********************************************/
+void ExerciseNum45 (void)
+{
+    /* This is exercise 45. */
 }
 
 /********************************************//**

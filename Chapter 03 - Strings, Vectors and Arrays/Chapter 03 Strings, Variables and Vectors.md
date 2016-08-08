@@ -653,6 +653,114 @@ One iterator is less than the other if it refers to an element that appears in t
 
 The result type when subtracting two operators is a *signed integral* type called `difference_type`, the result value is the amount of which we need to change the right iterator to get the left iterator. It is signed, because subtraction might have a negative result. 
 
+## 3.5 Arrays
+
+An **array** is a compound type and they are basically a container of objects of a single type, which we can access by position. Arrays have fixed size so it's not possible to add elements to an array, because of this fixed size some times they offer better run-time performance at the cost of lost of flexibility.
+
+### 3.5.1 Defining and initializing built-in arrays
+
+To initialize an array two parameters must be provided the name, `a`, and a dimension `d`. The array declarator has the followint form
+
+```cpp
+a[d];
+```
+
+The number of element's in the array is part of the arrays type and therefore it must be known at compile time, which means that `d` it must be a constant expression. The following are examples:
+
+```cpp
+unsigned int not_c = 30;
+constexpr unsigned int c = 30;
+
+int arr[10]; // Valid, array of ten ints and a dimension is provided.
+int *parr[c]; // Array of `c` pointers to int, and valid because c is a constant expression.
+string bad[not_c]; // ERROR: not_c is not a constant expression.
+string strs[get_size()]; // If get_size is a constant expression it will be succesful, and it will be an error otherwise.
+```
+
+By default arrays are default initialized and just like built-in types, when an array of built-in type is defined inside a function it will have undefined values. Arrays contain objects, so it's not possible to have an array of references. It's not possible to use the `auto` keyword with an array.
+
+It's possible to omit the dimension if an initializer is provided, the compiler will determine the dimension from the initializer. It's also possible to provide a dimension and a initializer but the initializer must not be greater in length than the dimension. If the initializer has less elements than the value of the dimension, the elements not explicitly initialized will be default initialized.
+
+The following are examples of this kind of initialization.
+
+```cpp
+int a1[3] = {1, 2, 3}; // Array of three ints, 1, 2, 3.
+int a2[] = {1, 2, 3}; // Array of three ints, the compiler determines the dimension from the initializer, 1, 2, 3.
+int a3[5] = {1, 2, 3}; // Array of five ints, the last two are default initialized to zero.
+int a4[2] = {1, 2, 3}; // ERROR: Too many initializers.
+```
+
+#### 3.5.1.1 Character arrays
+
+Character arrays need some special mention. It's possible to initialize character arrays from a string literal but it's also important to remember that string literals end with a `NULL` character, and this `NULL` character is copied into the array along with all the characters in the literal.
+
+```cpp
+char a1[] = {'C', '+', '+'}; // List initialization, no null.
+char a2[] = {'C', '+', '+', '\0'}; // List initialization, explicit null.
+char a3[] = "C++"; // Length 4, 3 characters and the null terminator
+char a4[3] = "C++"; // ERROR: No space for the null terminator.
+```
+
+#### 3.5.1.2 No copy initialization is allowed with arrays or assignment
+
+It's not possible to do copy initialization with arrays, like this:
+
+```cpp
+int a[] = {1, 2};
+int a2[] = a; // ERROR
+```
+
+And it's also not possible to assign one array to another, like this:
+
+```cpp
+int a[] = {1, 2};
+int a1[] = {2, 1};
+a = a1; // ERROR
+```
+
+#### 3.5.1.3 Pointer and references to arrays
+
+Because an array is an object, we can have pointers and references to arrays, defining pointer or references to arrays can be complicated, for this we use parentheses like this:
+
+```cpp
+int *ptrs[10]; // Array of ten pointers.
+int &refs[10]; // ERROR: Not possible to have arrays of references.
+int (*arrPtr)[10] = &arr; // Pointer to array of ten ints.
+int (&arrRef)[10] = arr; // Reference to array of ten ints.
+int *(&arrPtrRef)[10] = ptrs; // Reference to array of ten pointers to int.
+```
+
+As you might have figured out, it's easier to understand these declarations by reading from the inside out rather than from right to left, which is the way type modifiers bind.
+
+### 3.5.2 Accessing the elements of an array
+
+We can use a **range for** or **subscripts** to access elements in an array, as usual, the indices is zero based, the first element is at index zero.
+
+The following is an example of accessing all the elements in an array using a **range for**:
+
+```cpp
+unsigned int scores[] = {0, 1, 2, 3, 4, 5};
+for (auto &i : scores)
+  cout << i << " ";
+cout << endl;
+```
+
+When using a variable as an index in an array, it's recommended to define this variable with the type `size_t`, which is a specific unsigned type that is guaranteed to be large enough to hold the size of any object in memory. The `size_t` type is defined in the `cstddef` header, which is the C++ version of the `stddef.h` header from the C library.
+
+The following is an example of using subscripts and the type `size_t`:
+
+```cpp
+unsigned int scores[] = {0, 0, 0, 0, 0};
+size_t idx = 0;
+
+for (idx = 0; idx < 4; idx++)
+{
+  scores[idx] = idx;
+}
+```
+
+As is the case with other kind of containers, it's up to the programmer to ensure that valid values are being accessed, those that are in range, that is, that the index value is equal to or greater than zero and less than the size of the array.
+
 # Other terms and concepts
 
 **Direct initialization form**: A direct initialization omits the `=` character in the declaration, we use direct initialization when we initialize a variable from more than one value. See 3.2.1.1 for more information.
@@ -678,3 +786,5 @@ vector<int> ivec;
 ```
 
 It is not required to know how to create templates to use them, creating templates is something complex.
+
+**Using vectors or arrays**: In general, if you don't know how many elements you will need, it's better to use a `vector`.
