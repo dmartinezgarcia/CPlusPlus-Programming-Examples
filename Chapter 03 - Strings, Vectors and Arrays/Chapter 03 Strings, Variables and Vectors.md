@@ -761,6 +761,219 @@ for (idx = 0; idx < 4; idx++)
 
 As is the case with other kind of containers, it's up to the programmer to ensure that valid values are being accessed, those that are in range, that is, that the index value is equal to or greater than zero and less than the size of the array.
 
+### 3.5.3 Pointers and arrays
+
+When we use **arrays** the compiler ordinarily converts arrays to pointers, operations on arrays are usually operations on pointers.
+
+Because the elements in an array are objects we can obtain the address to any of the elements in an array using the *address-of* operator, `&`, in combination with a subscript. The following are examples of the this:
+
+```cpp
+string nums[] = {"one", "two", "three"};
+string *num_0 = &nums[0]; // Obtain the address to element zero.
+string *num_1 = &nums[1]; // Obtain the address to element one.
+string *num_2 = &nums[2]; // Obtain the address to element two.
+```
+
+It's important to know that in those places where we use an array, the compiler automatically replaces it by a pointer to the first element, therefore the following code:
+
+```cpp
+string *num_0 = nums;
+```
+
+Is equivalent to the following code:
+
+```cpp
+string *num_0 = &nums[0];
+```
+
+Because arrays are converted to pointers, when we use the keyword `auto`, the deduced type by the compiler is a pointer.
+
+```cpp
+int a[] = {1, 2, 3, 4};
+auto a2 = a; // Deduced type will be int*, pointer to int.
+```
+
+It's the same as if we had written this:
+
+```cpp
+int a[] = {1, 2, 3, 4};
+auto a2 = &a[0];
+```
+
+This does not happen when using `decltype` keyword, the type returned is an array:
+
+```cpp
+int a[] = {1, 2, 3, 4};
+decltype(a) b = {1, 2, 3, 4}; // The type deduced will be array of four integers.
+```
+
+#### 3.5.3.1 Pointers acting as iterators in arrays
+
+Pointers in relation to arrays can behave the same way as iterators, for example the increment operator can be used to move from one element in the array to the next one or pointers can be used to go through all the elements in an array.
+
+In the following code we use pointers to move from one element to the next:
+
+```cpp
+int a[] = {1, 2, 3};
+int *ptr = a;
+ptr++; // Ptr will now point to the second element.
+```
+
+It's also possible to obtain a pointer to the first element and a off-the-end pointer which is a pointer to the non existent element one past the last element of the array, this is similar to the `begin` and `end` functions with iterators. These two pointers can then be used to iterate through all the elements of the array.
+
+```cpp
+constexpr a_len = 3;
+int a[a_len] = {1, 2, 3};
+int *b = &a[0]; // Similar to being with iterators.
+int *e = &a[a_len]; // Similar to end with iterators.
+int *c = ;
+
+for (c = a; c != e; c++)
+{
+  cout << *c << endl;
+}
+```
+
+It's error prone to calculate the beginning of the array and the off-the-end pointer like this, it's easier and safer to use pointers, the new library includes two functions named `begin` and `end`. These functions are analogue to the `begin` and `end` functions in the iterators and take an array as an argument. This functions are defined in the `iterator` header.
+
+```cpp
+#include <iterator>
+
+int a[] = {1, 2, 3};
+int *b = begin(a); // Equal to &a[0].
+int *e = end(c); // Equal to &a[3].
+```
+
+#### 3.5.3.2 Pointer arithmetic
+
+When pointers address array elements all the operations described in the iterator arithmetic can be used with pointers and they have the same meaning as when used with iterators, these include dereference, increment, comparisons, addition of integral values, subtraction of two pointers.
+
+##### 3.5.3.2.1 Subtracting from or adding to pointers
+
+Adding an integral value to or subtracting an integral value from a pointer will advance or retreat that pointer a number of elements equal to the integral value added. It's important to know that by doing this we can calculate invalid pointers or off-the-end pointers that should not be dereferenced.
+
+```cpp
+int a[] = {0, 1, 2, 3, 4};
+int *b = a + 2; // b now points to the third element in the array.
+int *c = b - 1; // c now points to the second element in the array.
+int *d = a + 5; // d now points to the non existent element past the last element of the array, which should not be dereferenced.
+```
+
+##### 3.5.3.2.2 Subtracting two pointers
+
+As with iterators subtracting two pointers returns the distance between both pointers, the pointers must be valid pointers.
+
+```cpp
+int a[] = {1, 2, 3, 4};
+int *b = a + 3;
+int *c = c + 2;
+int *d = b - c; 
+```
+
+The result type of subtracting two pointers is `ptrdiff_t`, which is a machine-specific signed integral type which is defined in `cstddef.h`.
+
+##### 3.5.3.2.3 Dereferencing, subscripts and pointer arithmetic
+
+It's possible to combine pointer arithmetic and dereferencing instead of using subscripts to access a specific element in an array:
+
+```cpp
+int a[] = {0, 10, 20, 30, 40};
+int b = *(a + 1); // b will be 10.
+int c = *a + 1; // Equivalent to a[0] + 1, and therefore c will be 1.
+```
+
+Library types such as `vector` and `string` force the index or subscript to be an unsigned value, however with arrays it can be a signed value, we can see this in the following example:
+
+```cpp
+int a[] = {0, 10, 20, 30};
+int *p = a + 2;
+int c = p[-2]; // Equivalent to a[0], c will be 0.
+```
+
+### 3.5.4 C-Style Character Strings
+
+We won't cover in detail **C-Style Character Strings**, as it's not the main purpose of these notes.
+
+They are not a type, is more or less of a convention for how to represent them. Strings that follow this convention are stored in character arrays and they are `null` terminated, (`\0`). C++ supports these kind of strings but they should not be used in C++ programs, because they are harder to use than the `string` type and they are a rich source of bugs and security problems.
+
+## 3.6 Interfacing to older code.
+
+Plenty of C++ programs interface to programs written in C or other languages that can't use the C++ library, C++ offers facilities to make the interface easier to develop.
+
+### 3.6.1 Mixing library strings and C-Style strings
+
+We've seen some of this functionality in a previous section but it's a good idea to summarize it here:
+
+1. We can initialize a `string` or assign to a `string` null-terminated character arrays, for example, a string literal.
+2. We can use null-terminated character arrays as one operand to the `string` addition operator, `+`, or as the right-hand operand in the `string` compound assignment operator, `+=`.
+3. It's possible to use the `string` method `c_str` to transform a `string` into a C-style character string. This function returns a `const char*` to the beginning of the array that stores the same information as the characters in the string.
+
+It's recommended to use `strings` rather than C-style strings.
+
+### 3.6.2 Using an array to initialize a vector
+
+It's possible to use an array to initialize a `vector`, to do so, we specify the first element and the off-the-end element we wish to copy.
+
+```cpp
+int int_arr[] = {0, 1, 2, 3, 4, 5};
+
+vector<int> ivec(begin(int_arr), end(int_arr));
+vector<int> ivec_2(&int_arr[0], &int_arr[6]);
+```
+
+It's also possible to create a vector that contains a subset of the array, for example:
+
+```cpp
+int int_arr[] = {0, 1, 2, 3, 4, 5};
+
+vector<int> ivec(int_arr + 1, int_arr + 3);
+```
+
+It's recommended to use vectors and iterators instead of arrays and pointers.
+
+## 3.7 Multidimensional arrays
+
+**Multidimensional arrays** are actually arrays of arrays, but thinking of these as multidimensional arrays can make things easier.
+
+We define multidimensional arrays by providing more dimensions, like in this example:
+
+```cpp
+int a[3][4]; // Array of three elements, each element an array of four integers.
+int b[2][3][4]; // Array of two elements each element array of three elements, each element an array of four integers.
+```
+
+To understand a multidimensional array declaration, it's useful to read from the inside out. There is no limit on how many dimensions can be provided, in a two dimension array the first dimension is usually referred as the row and the second one as the column.
+
+### 3.7.1 Initializing multidimensional arrays
+
+It's possible to initialize multidimensional arrays in two different ways, the first one is as follows, with a bracketed list of initializers.
+
+```cpp
+int a[2][2] = { {0, 1}, {3, 4} };
+```
+
+Nested braces are optional, the following initialization is equivalent, although considerably less clear:
+
+```cpp
+int b[2][2] = {0, 1, 3, 4};
+```
+
+It's also possible to leave elements without being initialized in any of both forms, the behaviour is the same as with single arrays.
+
+### 3.7.2 Subscripting multidimensional arrays
+
+It's possible to subscript arrays, by providing separate subscripts for each dimension.
+
+We can access specific elements, either one of the arrays stored in the multidimensional array or a single element in an array:
+
+```cpp
+int int_arr[2][2][2] = { { {0, 1}, {2, 3} }, { {4, 5}, {6, 7} } };
+
+int val = int_arr[1][0][1]; // This is value 5.
+int (&val_1)[2][2] = int_arr[0]; // This is { {0, 1}, {2, 3} }
+int (&val_2)[2] = int_arr[0][1]; // This is {2, 3}.
+```
+
 # Other terms and concepts
 
 **Direct initialization form**: A direct initialization omits the `=` character in the declaration, we use direct initialization when we initialize a variable from more than one value. See 3.2.1.1 for more information.
