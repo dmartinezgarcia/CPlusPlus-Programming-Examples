@@ -1,5 +1,5 @@
 // Exercise to execute. 1 <= ExerciseNum <= NumberOfTotalExercises.
-int ExerciseNum = 1;
+int ExerciseNum = 45;
 
 // Add function prototypes as you add them.
 void ExerciseNum1 (void);
@@ -101,6 +101,12 @@ Exercise Exercises[] =
 
 #include <stdio.h>
 
+#include <cstring>
+#include <cstddef>
+#include <iostream>
+#include <string>
+#include <vector>
+
 /********************************************//**
  *  Exercise 3.1
  *
@@ -108,7 +114,34 @@ Exercise Exercises[] =
  ***********************************************/
 void ExerciseNum1 (void)
 {
-    /* This is exercise 1. */
+    using std::cout;
+    using std::endl;
+    using std::cin;
+    int sum, i, a;
+
+    // Exercise 1.9
+    sum = 0, i = 50;
+    while (i <= 100)
+    {
+        sum += i++;
+    }
+    cout << "Total sum: " << sum << endl;
+
+    // Exercise 1.10
+    i = 10;
+    while (i != 0)
+    {
+        cout << i-- << "\r";
+    }
+    cout << endl;
+
+    // Exercise 1.11
+    cin >> i >> a;
+    while (++i < a)
+    {
+        cout << i << " ";
+    }
+    cout << endl;
 }
 
 /********************************************//**
@@ -118,7 +151,27 @@ void ExerciseNum1 (void)
  ***********************************************/
 void ExerciseNum2 (void)
 {
-    /* This is exercise 2. */
+    using std::string;
+    using std::cout;
+    using std::endl;
+    using std::cin;
+    using std::getline;
+
+    string s0;
+
+    // Read by word.
+    cout << "Whatever you type, the words will be read and printed back, type \"continue\" to exit" << endl;
+    while ((cin >> s0) && (s0 != "continue"))
+    {
+        cout << s0 << endl;
+    }
+
+    // Read by line.
+    cout << "Now whatever you type, lines will be read and printed back." << endl;
+    while (getline(cin, s0))
+    {
+        cout << s0 << endl;
+    }
 }
 
 /********************************************//**
@@ -128,18 +181,57 @@ void ExerciseNum2 (void)
  ***********************************************/
 void ExerciseNum3 (void)
 {
-    /* This is exercise 3. */
+    // Please check the previous exercise to find out.
 }
 
 /********************************************//**
  *  Exercise 3.4
  *
  *  Write a program to read two strings and report whether the strings are equal.
- *  If not, report which of the two is larger. Now, change *the program to report whether the strings have the same length, and if not, report which is longer.
+ *  If not, report which of the two is larger. Now, change the program to report whether the strings have the same length, and if not, report which is longer.
  ***********************************************/
 void ExerciseNum4 (void)
 {
-    /* This is exercise 4. */
+    using std::string;
+    using std::cout;
+    using std::endl;
+    using std::cin;
+    using std::getline;
+
+    string s0, s1;
+
+    cout << "Please type the first string." << endl;
+    getline(cin, s0);
+    cout << "Please type the second string." << endl;
+    getline(cin, s1);
+
+    if (s0 == s1)
+    {
+        cout << "Both strings are equal.";
+    }
+    else if (s0 < s1)
+    {
+        cout << "The second string is larger than the first one.";
+    }
+    else
+    {
+        cout << "The first string is larger that the second one.";
+    }
+    cout << endl;
+
+    if (s0.size() == s1.size())
+    {
+        cout << "Both strings have the same length.";
+    }
+    else if (s0.size() < s1.size())
+    {
+        cout << "The second string is longer than the first one.";
+    }
+    else
+    {
+        cout << "The first string is longer than the second one.";
+    }
+    cout << endl;
 }
 
 /********************************************//**
@@ -150,7 +242,25 @@ void ExerciseNum4 (void)
  ***********************************************/
 void ExerciseNum5 (void)
 {
-    /* This is exercise 5. */
+    using std::string;
+    using std::cout;
+    using std::endl;
+    using std::cin;
+    using std::getline;
+
+    string s0, s1;
+
+    cout << "Type strings, they will be concatenated (separated by spaces) and then printed back to you." << endl;
+    while (getline(cin, s0))
+    {
+        if (!s1.empty())
+        {
+            s1 += " ";
+        }
+        s1 += s0;
+    }
+    cout << endl << "The concatenated string is the following: " << endl;
+    cout << s1 << endl;
 }
 
 /********************************************//**
@@ -160,7 +270,22 @@ void ExerciseNum5 (void)
  ***********************************************/
 void ExerciseNum6 (void)
 {
-    /* This is exercise 6. */
+    using std::string;
+    using std::cout;
+    using std::endl;
+    using std::cin;
+    using std::getline;
+
+    string s0;
+
+    cout << "Type a string, all its characters will be replaced by \'X\'." << endl;
+    getline(cin, s0);
+
+    for (auto &chr : s0)
+    {
+        chr = 'X';
+    }
+    cout << "This is your string now: " << s0 << endl;
 }
 
 /********************************************//**
@@ -170,7 +295,24 @@ void ExerciseNum6 (void)
  ***********************************************/
 void ExerciseNum7 (void)
 {
-    /* This is exercise 7. */
+    // It will happen the same, however it's not the correct type to access this string.
+    // The correct type is the return type of size().
+    using std::string;
+    using std::cout;
+    using std::endl;
+    using std::cin;
+    using std::getline;
+
+    string s0;
+
+    cout << "Type a string, all its characters will be replaced by \'X\'." << endl;
+    getline(cin, s0);
+
+    for (char &chr : s0)
+    {
+        chr = 'X';
+    }
+    cout << "This is your string now: " << s0 << endl;
 }
 
 /********************************************//**
@@ -180,7 +322,33 @@ void ExerciseNum7 (void)
  ***********************************************/
 void ExerciseNum8 (void)
 {
-    /* This is exercise 8. */
+    using std::string;
+    using std::cout;
+    using std::endl;
+    using std::cin;
+    using std::getline;
+
+    string s0, s1;
+    decltype(s0.size()) i = 0;
+
+    cout << "Type a string, all its characters will be replaced by \'X\'." << endl;
+    getline(cin, s0);
+    s1 = s0;
+
+    while (i < s0.size())
+    {
+        s0[i++] = 'X';
+    }
+
+    cout << "This is your string now (while loop): " << s0 << endl;
+    s0 = s1;
+
+    for (i = 0; i < s0.size(); i++)
+    {
+        s0[i] = 'X';
+    }
+
+    cout << "This is your string now (for loop): " << s0 << endl;
 }
 
 /********************************************//**
@@ -193,7 +361,7 @@ void ExerciseNum8 (void)
  ***********************************************/
 void ExerciseNum9 (void)
 {
-    /* This is exercise 9. */
+    // It is not valid, because it's trying to access members of an empty sequence, and therefore behaviour is undefined.
 }
 
 /********************************************//**
@@ -203,7 +371,23 @@ void ExerciseNum9 (void)
  ***********************************************/
 void ExerciseNum10 (void)
 {
-    /* This is exercise 10. */
+    using std::string;
+    using std::cin;
+    using std::cout;
+    using std::endl;
+
+    string s0;
+
+    cout << "Write a string with punctuation, a new string with the punctuation removed will be printed." << endl;
+    getline(cin, s0);
+    for (auto &i : s0)
+    {
+        if (!ispunct(i))
+        {
+            cout << i;
+        }
+    }
+    cout << endl;
 }
 
 /********************************************//**
@@ -216,7 +400,18 @@ void ExerciseNum10 (void)
  ***********************************************/
 void ExerciseNum11 (void)
 {
-    /* This is exercise 11. */
+    // It is valid, and the type of &c is reference to const char. (const char &).
+    using std::string;
+    using std::endl;
+    using std::cout;
+
+    const string s = "Keep out!";
+
+    for (auto &c : s)
+    {
+        cout << c;
+    }
+    cout << endl;
 }
 
 /********************************************//**
@@ -230,7 +425,15 @@ void ExerciseNum11 (void)
  ***********************************************/
 void ExerciseNum12 (void)
 {
-    /* This is exercise 12. */
+    using std::vector;
+    using std::string;
+
+    // Legal, vector of vector of integers.
+    vector<vector<int>> ivec;
+    // Not legal, vector of strings initialized from vector of integers.
+    //vector<string> svec = ivec;
+    // Legal, vector of ten "null" elements.
+    vector<string> svec(10, "null");
 }
 
 /********************************************//**
@@ -248,7 +451,73 @@ void ExerciseNum12 (void)
  ***********************************************/
 void ExerciseNum13 (void)
 {
-    /* This is exercise 13. */
+    using std::vector;
+    using std::string;
+    using std::cout;
+    using std::endl;
+
+    // No elements.
+    vector<int> v1;
+
+    cout << "This are the elements in v1: " << endl;
+    cout << "Elements: " << v1.size() << endl;
+    for (auto &c : v1)
+        cout << c << ' ';
+    cout << endl;
+
+    // Ten elements initialized to zero.
+    vector<int> v2(10);
+
+    cout << "This are the elements in v2: " << endl;
+    cout << "Elements: " << v2.size() << endl;
+    for (auto &c : v2)
+        cout << c << ' ';
+    cout << endl;
+
+    // Ten elements initialized to 42.
+    vector<int> v3(10, 42);
+
+    cout << "This are the elements in v3: " << endl;
+    cout << "Elements: " << v3.size() << endl;
+    for (auto &c : v3)
+        cout << c << ' ';
+    cout << endl;
+
+    // One element initialized to 10.
+    vector<int> v4 {10};
+
+    cout << "This are the elements in v4: " << endl;
+    cout << "Elements: " << v4.size() << endl;
+    for (auto &c : v4)
+        cout << c << ' ';
+    cout << endl;
+
+    // Two elements initialized to 10 and 42.
+    vector<int> v5 {10, 42};
+
+    cout << "This are the elements in v5: " << endl;
+    cout << "Elements: " << v5.size() << endl;
+    for (auto &c : v5)
+        cout << c << ' ';
+    cout << endl;
+
+    // Wrong initialization, will compile same as v6(10).
+    vector<string> v6 {10};
+
+    cout << "This are the elements in v6: " << endl;
+    cout << "Elements: " << v6.size() << endl;
+    for (auto &c : v6)
+        cout << c << ' ';
+    cout << endl;
+
+    // Wrong initialization, will compile same as v7(10, "hi").
+    vector<string> v7 {10, "hi"};
+
+    cout << "This are the elements in v7: " << endl;
+    cout << "Elements: " << v7.size() << endl;
+    for (auto &c : v7)
+        cout << c << ' ';
+    cout << endl;
 }
 
 /********************************************//**
@@ -258,7 +527,25 @@ void ExerciseNum13 (void)
  ***********************************************/
 void ExerciseNum14 (void)
 {
-    /* This is exercise 14. */
+    using std::vector;
+    using std::endl;
+    using std::cout;
+    using std::cin;
+
+    vector<int> v1;
+    int a;
+
+    cout << "Please type integer values to add to the vector." << endl;
+    while (cin >> a)
+    {
+        v1.push_back(a);
+    }
+
+    for (auto &i : v1)
+    {
+        cout << i << ' ';
+    }
+    cout << endl;
 }
 
 /********************************************//**
@@ -268,7 +555,26 @@ void ExerciseNum14 (void)
  ***********************************************/
 void ExerciseNum15 (void)
 {
-    /* This is exercise 15. */
+    using std::vector;
+    using std::string;
+    using std::endl;
+    using std::cout;
+    using std::cin;
+
+    vector<string> v1;
+    string a;
+
+    cout << "Please type strings to add to the vector." << endl;
+    while (getline(cin, a))
+    {
+        v1.push_back(a);
+    }
+
+    for (auto &i : v1)
+    {
+        cout << i << ' ';
+    }
+    cout << endl;
 }
 
 /********************************************//**
@@ -278,7 +584,7 @@ void ExerciseNum15 (void)
  ***********************************************/
 void ExerciseNum16 (void)
 {
-    /* This is exercise 16. */
+    // Already done this in exercise 3.13 itself.
 }
 
 /********************************************//**
@@ -288,7 +594,38 @@ void ExerciseNum16 (void)
  ***********************************************/
 void ExerciseNum17 (void)
 {
-    /* This is exercise 17. */
+    using std::string;
+    using std::vector;
+    using std::cin;
+    using std::cout;
+    using std::endl;
+
+    vector<string> v1;
+    unsigned char i = 0;
+
+    cout << "Please type as many words as you wish, they will be converted to uppercase and printed back." << endl;
+    for (string a; cin >> a; )
+    {
+        v1.push_back(a);
+    }
+
+    for (auto &a : v1)
+    {
+        for (auto &c : a)
+        {
+            if (!isupper(c))
+            {
+                c = toupper(c);
+            }
+        }
+
+        cout << a << ' ';
+        if (++i == 8)
+        {
+            cout << endl;
+            i = 0;
+        }
+    }
 }
 
 /********************************************//**
@@ -301,7 +638,11 @@ void ExerciseNum17 (void)
  ***********************************************/
 void ExerciseNum18 (void)
 {
-    /* This is exercise 18. */
+    // ivec is empty, and the behaviour of subscripting it will be undefined, however it is compile-able.
+    using std::vector;
+
+    vector<int> ivec;
+    ivec[0] = 42;
 }
 
 /********************************************//**
@@ -311,7 +652,12 @@ void ExerciseNum18 (void)
  ***********************************************/
 void ExerciseNum19 (void)
 {
-    /* This is exercise 19. */
+    // This three ways are possible.
+    using std::vector;
+
+    vector<int> v1(10, 42); // This is the preferred one, which is obvious why.
+    vector<int> v2 {42, 42, 42, 42, 42, 42, 42, 42, 42, 42};
+    vector<int> v3 = {42, 42, 42, 42, 42, 42, 42, 42, 42, 42};
 }
 
 /********************************************//**
@@ -321,7 +667,40 @@ void ExerciseNum19 (void)
  ***********************************************/
 void ExerciseNum20 (void)
 {
-    /* This is exercise 20. */
+    using std::vector;
+    using std::cout;
+    using std::cin;
+    using std::endl;
+
+    vector<int> v1;
+
+    cout << "Please type integers." << endl;
+    for (int a; cin >> a; )
+    {
+        v1.push_back(a);
+    }
+
+    cout << "There are in total " << v1.size() << endl;
+
+    // First part.
+    cout << "The sum of each pair of adjacent elements is displayed." << endl;
+    for (vector<int>::size_type a = 0; (a + 1) < v1.size(); a += 2)
+    {
+        cout << "The sum of pair n" << ((a > 0) ? a - 1 : a) << " is : ";
+        cout << v1[a] + v1[a + 1] << ".";
+        cout << endl;
+    }
+    cout << endl;
+
+    // Second part.
+    cout << "The first and last numbers sum, the second-first and second-last numbers sum, and so on..." << endl;
+    for (vector<int>::size_type a = 0; a < (v1.size() / 2); a++)
+    {
+        cout << "The sum of pair n" << a << " is : ";
+        cout << v1[a] + v1[v1.size() - 1 - a] << ".";
+        cout << endl;
+    }
+    cout << endl;
 }
 
 /********************************************//**
@@ -331,17 +710,112 @@ void ExerciseNum20 (void)
  ***********************************************/
 void ExerciseNum21 (void)
 {
-    /* This is exercise 21. */
+    using std::vector;
+    using std::string;
+    using std::cout;
+    using std::endl;
+
+    vector<int>::iterator b_i, e_i;
+    vector<string>::iterator b_s, e_s;
+
+    // No elements.
+    vector<int> v1;
+
+    cout << "This are the elements in v1: " << endl;
+    cout << "Elements: " << v1.size() << endl;
+    for (b_i = v1.begin(), e_i = v1.end(); b_i != e_i; b_i++)
+        cout << *b_i << ' ';
+    cout << endl;
+
+    // Ten elements initialized to zero.
+    vector<int> v2(10);
+
+    cout << "This are the elements in v2: " << endl;
+    cout << "Elements: " << v2.size() << endl;
+    for (b_i = v2.begin(), e_i = v2.end(); b_i != e_i; b_i++)
+        cout << *b_i << ' ';
+    cout << endl;
+
+    // Ten elements initialized to 42.
+    vector<int> v3(10, 42);
+
+    cout << "This are the elements in v3: " << endl;
+    cout << "Elements: " << v3.size() << endl;
+    for (b_i = v3.begin(), e_i = v3.end(); b_i != e_i; b_i++)
+        cout << *b_i << ' ';
+    cout << endl;
+
+    // One element initialized to 10.
+    vector<int> v4 {10};
+
+    cout << "This are the elements in v4: " << endl;
+    cout << "Elements: " << v4.size() << endl;
+    for (b_i = v4.begin(), e_i = v4.end(); b_i != e_i; b_i++)
+        cout << *b_i << ' ';
+    cout << endl;
+
+    // Two elements initialized to 10 and 42.
+    vector<int> v5 {10, 42};
+
+    cout << "This are the elements in v5: " << endl;
+    cout << "Elements: " << v5.size() << endl;
+    for (b_i = v5.begin(), e_i = v5.end(); b_i != e_i; b_i++)
+        cout << *b_i << ' ';
+    cout << endl;
+
+    // Wrong initialization, will compile same as v6(10).
+    vector<string> v6 {10};
+
+    cout << "This are the elements in v6: " << endl;
+    cout << "Elements: " << v6.size() << endl;
+    for (b_s = v6.begin(), e_s = v6.end(); b_s != e_s; b_s++)
+        cout << *b_s << ' ';
+    cout << endl;
+
+    // Wrong initialization, will compile same as v7(10, "hi").
+    vector<string> v7 {10, "hi"};
+
+    cout << "This are the elements in v7: " << endl;
+    cout << "Elements: " << v7.size() << endl;
+    for (b_s = v7.begin(), e_s = v7.end(); b_s != e_s; b_s++)
+        cout << *b_s << ' ';
+    cout << endl;
 }
 
 /********************************************//**
  *  Exercise 3.22
  *
  *  Revise the loop that printed the first paragraph in text to instead change the elements in text that correspond to the first paragraph to all uppercase. After you've updated text, print its contents.
+ *
+ *  // Print each line in text up to the first blank line.
+ *  for (auto it = text.cbegin(); it != text.cend() && !it->empty(); ++it)
+ *      cout << *it << endl;
  ***********************************************/
 void ExerciseNum22 (void)
 {
-    /* This is exercise 22. */
+    using std::cout;
+    using std::string;
+    using std::endl;
+    using std::vector;
+
+    vector<string> txt = {"\n", "This is the first paragraph.", "\n", "This is the second paragraph", "\n", "This is the third paragraph"};
+
+    for (auto it = txt.begin(); it != txt.end() && !it->empty(); ++it)
+    {
+        if (*it != "\n")
+        {
+            for (auto &c : *it)
+            {
+                c = toupper(c);
+            }
+            break;
+        }
+    }
+
+    for (auto &a : txt)
+    {
+        cout << a << endl;
+    }
 }
 
 /********************************************//**
@@ -351,7 +825,26 @@ void ExerciseNum22 (void)
  ***********************************************/
 void ExerciseNum23 (void)
 {
-    /* This is exercise 23. */
+    using std::vector;
+    using std::cout;
+    using std::endl;
+
+    vector<int> data {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+    cout << "These are the original elements: " << endl;
+    for (auto db = data.begin(), de = data.end(); db != de; db++)
+    {
+        cout << *db << ' ';
+        *db *= 2;
+    }
+    cout << endl;
+
+    cout << "These are the updated elements: " << endl;
+    for (auto dbc = data.cbegin(), dec = data.cend(); dbc != dec; dbc++)
+    {
+        cout << *dbc << ' ';
+    }
+    cout << endl;
 }
 
 /********************************************//**
@@ -361,7 +854,40 @@ void ExerciseNum23 (void)
  ***********************************************/
 void ExerciseNum24 (void)
 {
-    /* This is exercise 23. */
+    using std::vector;
+    using std::cout;
+    using std::cin;
+    using std::endl;
+
+    vector<int> v1;
+
+    cout << "Please type integers." << endl;
+    for (int a; cin >> a; )
+    {
+        v1.push_back(a);
+    }
+
+    cout << "There are in total " << v1.size() << endl;
+
+    // First part.
+    cout << "The sum of each pair of adjacent elements is displayed." << endl;
+    for (auto b = v1.cbegin(), e = v1.cend(), bc = v1.cbegin(); (b + 1) < e; b += 2)
+    {
+        cout << "The sum of pair n" << (((b - bc) > 0) ? ((b - bc) / 2) : 0) << " is : ";
+        cout << *b + *(b + 1) << ".";
+        cout << endl;
+    }
+    cout << endl;
+
+    // Second part.
+    cout << "The first and last numbers sum, the second-first and second-last numbers sum, and so on..." << endl;
+    for (auto b = v1.cbegin(), e = v1.cend(), bc = v1.cbegin(); b != (bc + (v1.size() / 2)); b++, e--)
+    {
+        cout << "The sum of pair n" << (b - bc) << " is : ";
+        cout << *b + *(e - 1) << ".";
+        cout << endl;
+    }
+    cout << endl;
 }
 
 /********************************************//**
@@ -381,7 +907,27 @@ void ExerciseNum24 (void)
  ***********************************************/
 void ExerciseNum25 (void)
 {
-    /* This is exercise 25. */
+    using std::vector;
+    using std::cin;
+    using std::cout;
+    using std::endl;
+
+    vector<int> scores(11, 0);
+    int grade = 0;
+
+    while (cin >> grade)
+    {
+        if (grade <= 100)
+        {
+            (*(scores.begin() + (grade / 10)))++;
+        }
+    }
+
+    cout << "This are then number of grades (0 to 100) in units of 10: " << endl;
+    for (auto &val : scores)
+    {
+        cout << "Score: " << val << endl;
+    }
 }
 
 /********************************************//**
@@ -406,7 +952,8 @@ void ExerciseNum25 (void)
  ***********************************************/
 void ExerciseNum26 (void)
 {
-    /* This is exercise 26. */
+    // Because the addition of two iterators is undefined, (I guess it can create a very large value that can overflow).
+    // What the first operation really does is add an integer to an iterator.
 }
 
 /********************************************//**
@@ -420,9 +967,22 @@ void ExerciseNum26 (void)
  *      c) int ia[txt_size()];
  *      d) char st[11] = "fundamental";
  ***********************************************/
+int txt_size(void)
+{
+    return 20;
+}
 void ExerciseNum27 (void)
 {
-    /* This is exercise 27. */
+    unsigned int buf_size = 1024;
+
+    // Invalid, because buf_size is not a constant expression, however it seems to pass for some reason, probably compiler extension or something.
+    //int ia[buf_size];
+    // Valid, because it is a constant expression.
+    int ia_1[4 * 7 - 14];
+    // Invalid, because the function doesn't return a constant expression, it seems to pass though but it shouldn't, maybe compiler extension or something.
+    //int ia_2[txt_size()];
+    // Invalid, not enough space for the NULL terminator, should be 12 instead of 11.
+    //char st[11] = "fundamental";
 }
 
 /********************************************//**
@@ -438,9 +998,48 @@ void ExerciseNum27 (void)
  *          int ia2[10];
  *      }
  ***********************************************/
+std::string sa[10];
+int ia[10];
 void ExerciseNum28 (void)
 {
-    /* This is exercise 28. */
+    using std::cout;
+    using std::endl;
+    using std::string;
+
+    string sa2[10];
+    int ia2[10];
+
+    // ia will be all zeros.
+    // ia2 will be garbage.
+    // sa will be the empty string ten times.
+    // sa2 will be the empty string ten times.
+    cout << "Values in sa: " << endl;
+    for (auto &a : sa)
+    {
+        cout << a << ' ';
+    }
+    cout << endl;
+
+    cout << "Values in ia: " << endl;
+    for (auto &a : ia)
+    {
+        cout << a << ' ';
+    }
+    cout << endl;
+
+    cout << "Values in sa2: " << endl;
+    for (auto &a : sa2)
+    {
+        cout << a << ' ';
+    }
+    cout << endl;
+
+    cout << "Values in ia2: " << endl;
+    for (auto &a : ia2)
+    {
+        cout << a << ' ';
+    }
+    cout << endl;
 }
 
 /********************************************//**
@@ -450,7 +1049,8 @@ void ExerciseNum28 (void)
  ***********************************************/
 void ExerciseNum29 (void)
 {
-    /* This is exercise 29. */
+    // Arrays are error prone, must have fixed sizes, should only be used when we know the amount of data we are going to handle.
+    // Arrays are inherited from C.
 }
 
 /********************************************//**
@@ -467,7 +1067,13 @@ void ExerciseNum29 (void)
  ***********************************************/
 void ExerciseNum30 (void)
 {
-    /* This is exercise 30. */
+    constexpr size_t array_size = 10;
+    int ia[array_size];
+
+    for (size_t ix = 1; ix <= array_size; ++ix)
+    {
+        ia[ix - 1] = ix;
+    }
 }
 
 /********************************************//**
@@ -477,7 +1083,7 @@ void ExerciseNum30 (void)
  ***********************************************/
 void ExerciseNum31 (void)
 {
-    /* This is exercise 31. */
+    int my_array[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 }
 
 /********************************************//**
@@ -487,7 +1093,20 @@ void ExerciseNum31 (void)
  ***********************************************/
 void ExerciseNum32 (void)
 {
-    /* This is exercise 32. */
+    using std::vector;
+
+    int my_array[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int my_array_2[10];
+
+    // Could also use memcpy, but whatever.
+    for (char a = 0; a < (sizeof(my_array) / sizeof(*my_array)); a++)
+    {
+        my_array_2[a] = my_array[a];
+    }
+
+    // Rewrite with vectors.
+    vector<int> v1 {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    vector<int> v2 = v1;
 }
 
 /********************************************//**
@@ -507,7 +1126,7 @@ void ExerciseNum32 (void)
  ***********************************************/
 void ExerciseNum33 (void)
 {
-    /* This is exercise 33. */
+    // Scores would be filled with garbage, as most likely  this code would go inside a function, it needs to be initialized to zero.
 }
 
 /********************************************//**
@@ -519,7 +1138,7 @@ void ExerciseNum33 (void)
  ***********************************************/
 void ExerciseNum34 (void)
 {
-    /* This is exercise 34. */
+    // The following array advances / retreats a position equal to the distance between p2 and p1. Yes there are values that could make this illegal, those values are the ones that would make p1 an out of bounds value, when it points to non existent elements.
 }
 
 /********************************************//**
@@ -529,7 +1148,18 @@ void ExerciseNum34 (void)
  ***********************************************/
 void ExerciseNum35 (void)
 {
-    /* This is exercise 35. */
+    using std::begin;
+    using std::end;
+
+    int array_0[5] = {1, 1, 1, 1, 1};
+    int *ptr_b = begin(array_0);
+    int *ptr_e = end(array_0);
+
+    while (ptr_b != ptr_e)
+    {
+        *ptr_b = 0;
+        ptr_b++;
+    }
 }
 
 /********************************************//**
@@ -539,7 +1169,53 @@ void ExerciseNum35 (void)
  ***********************************************/
 void ExerciseNum36 (void)
 {
-    /* This is exercise 36. */
+    using std::vector;
+    using std::cin;
+    using std::cout;
+    using std::endl;
+
+    // Compare two arrays.
+    int my_array[5] = {0, 1, 2, 3, 4};
+    int my_array_0[6] = {0, 1, 2, 3, 4, 5};
+    bool res = true;
+
+    if (sizeof(my_array) == sizeof(my_array_0))
+    {
+        for (size_t a = 0; a < (sizeof(my_array) / sizeof(*my_array)); a++)
+        {
+            if (my_array[a] != my_array_0[a])
+            {
+                res = false;
+                break;
+            }
+        }
+    }
+    else
+    {
+        res = false;
+    }
+
+    if (res)
+    {
+        cout << "The arrays are equal." << endl;
+    }
+    else
+    {
+        cout << "The arrays are not equal." << endl;
+    }
+
+    // Compare two vectors.
+    vector<int> my_vector {0, 1, 2, 3, 4};
+    vector<int> my_vector_0 {0, 1, 2, 3, 4, 5};
+
+    if (my_vector == my_vector_0)
+    {
+        cout << "The vectors are equal." << endl;
+    }
+    else
+    {
+        cout << "The vectors are not equal." << endl;
+    }
 }
 
 /********************************************//**
@@ -557,7 +1233,18 @@ void ExerciseNum36 (void)
  ***********************************************/
 void ExerciseNum37 (void)
 {
-    /* This is exercise 37. */
+    using std::cout;
+    using std::endl;
+
+    // It prints all the characters in ca, a line for each character, and then continues until it finds a \0, which basically means that it will go out of bounds.
+    const char ca[] = {'h', 'e', 'l', 'l', 'o'/*FIX: , '\0'*/};
+    const char *cp = ca;
+
+    while (*cp)
+    {
+        cout << *cp << endl;
+        ++cp;
+    }
 }
 
 /********************************************//**
@@ -567,7 +1254,7 @@ void ExerciseNum37 (void)
  ***********************************************/
 void ExerciseNum38 (void)
 {
-    /* This is exercise 38. */
+    // Because pointers are addresses to objects, why would you add addresses? In most scenarios, it makes no sense.
 }
 
 /********************************************//**
@@ -577,7 +1264,35 @@ void ExerciseNum38 (void)
  ***********************************************/
 void ExerciseNum39 (void)
 {
-    /* This is exercise 39. */
+    using std::string;
+    using std::cout;
+    using std::endl;
+
+    // First part.
+    const char *str_0 = "This is a C-Style string.";
+    const char *str_1 = "This is a C-Style string...";
+
+    if (strcmp(str_0, str_1) == 0)
+    {
+        cout << "The C-Style strings are equal." << endl;
+    }
+    else
+    {
+        cout << "The C-Style strings are not equal." << endl;
+    }
+
+    // Second part.
+    string s0 = "This is a C-Style string.";
+    string s1 = "This is a C-Style string...";
+
+    if (s0 == s1)
+    {
+        cout << "The C++-Style strings are equal." << endl;
+    }
+    else
+    {
+        cout << "The C++-Style strings are not equal." << endl;
+    }
 }
 
 /********************************************//**
@@ -587,7 +1302,17 @@ void ExerciseNum39 (void)
  ***********************************************/
 void ExerciseNum40 (void)
 {
-    /* This is exercise 40. */
+    using std::cout;
+    using std::endl;
+
+    const char *array_0 = "01234";
+    const char *array_1 = "56789";
+    char array_2[11];
+
+    strcpy(array_2, array_0);
+    strcat(array_2, array_1);
+
+    cout << array_2 << endl;
 }
 
 /********************************************//**
@@ -597,7 +1322,21 @@ void ExerciseNum40 (void)
  ***********************************************/
 void ExerciseNum41 (void)
 {
-    /* This is exercise 41. */
+    using std::vector;
+    using std::cout;
+    using std::endl;
+    using std::begin;
+    using std::end;
+
+    int my_array[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    vector<int> my_vector(begin(my_array), end(my_array));
+
+    cout << "This are the values in the vector: " << endl;
+    for (auto &c : my_vector)
+    {
+        cout << c << ' ';
+    }
+    cout << endl;
 }
 
 /********************************************//**
@@ -607,17 +1346,82 @@ void ExerciseNum41 (void)
  ***********************************************/
 void ExerciseNum42 (void)
 {
-    /* This is exercise 42. */
+    using std::vector;
+    using std::cout;
+    using std::endl;
+
+    vector<int> my_vector {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int my_array[10];
+
+    if ( (sizeof(my_array) / sizeof(*my_array)) == my_vector.size() )
+    {
+        cout << "This are the values in the array: " << endl;
+        for (size_t a = 0; a < ((sizeof(my_array) / sizeof(*my_array))); a++)
+        {
+            my_array[a] = my_vector[a];
+            cout << my_array[a] << ' ';
+        }
+        cout << endl;
+    }
+    else
+    {
+        cout << "Sizes do not match, so nothing copied." << endl;
+    }
 }
 
 /********************************************//**
  *  Exercise 3.43
  *
- *  Write three different versions of a program to print the elements of ia. One version should use a range for to manage the iteration, the other two should use an ordinary for loop in one case using subscripts and in the other using pointers. In all three programs write all the types directly. That is, do not use a type alias, auto, or decltype to simplify the code.
+ *  Write three different versions of a program to print the elements of ia.
+ *  One version should use a range for to manage the iteration, the other two should use an ordinary for loop in one case using subscripts and in the other using pointers.
+ *  In all three programs write all the types directly. That is, do not use a type alias, auto, or decltype to simplify the code.
  ***********************************************/
 void ExerciseNum43 (void)
 {
-    /* This is exercise 43. */
+    using std::cout;
+    using std::endl;
+    using std::begin;
+    using std::end;
+
+    int ia[3][4] =
+    {
+        {0, 1, 3, 4},
+        {5, 6, 7, 8},
+        {9, 10, 11, 12}
+    };
+
+    // Using a range for.
+    cout << "Printing the elements using \"range for\": " << endl;
+    for (int (&a)[4] : ia)
+    {
+        for (int &b : a)
+        {
+            cout << b << ' ';
+        }
+        cout << endl;
+    }
+
+    // Using a conventional for loop with subscripts.
+    cout << "Printing the elements using \"conventional for loop with subscripts\": " << endl;
+    for (size_t a = 0; a < 3; a++)
+    {
+        for (size_t b = 0; b < 4; b++)
+        {
+            cout << ia[a][b] << ' ';
+        }
+        cout << endl;
+    }
+
+    // Using a conventional for loop with pointers.
+    cout << "Printing the elements using \"conventional for loop with pointers\": " << endl;
+    for (int (*a)[4] = begin(ia); a < end(ia); a++)
+    {
+        for (int *b = begin(*a); b < end(*a); b++)
+        {
+            cout << *b << ' ';
+        }
+        cout << endl;
+    }
 }
 
 /********************************************//**
@@ -627,7 +1431,56 @@ void ExerciseNum43 (void)
  ***********************************************/
 void ExerciseNum44 (void)
 {
-    /* This is exercise 44. */
+    using std::cout;
+    using std::endl;
+    using std::begin;
+    using std::end;
+
+    using ref_to_arr4 = int (&)[4];
+    using ref_to_int = int &;
+    using s_op = size_t;
+    using ptr_to_arr4 = int (*)[4];
+    using ptr_to_int = int *;
+
+    int ia[3][4] =
+    {
+        {0, 1, 3, 4},
+        {5, 6, 7, 8},
+        {9, 10, 11, 12}
+    };
+
+    // Using a range for.
+    cout << "Printing the elements using \"range for\": " << endl;
+    for (ref_to_arr4 a : ia)
+    {
+        for (ref_to_int b : a)
+        {
+            cout << b << ' ';
+        }
+        cout << endl;
+    }
+
+    // Using a conventional for loop with subscripts.
+    cout << "Printing the elements using \"conventional for loop with subscripts\": " << endl;
+    for (s_op a = 0; a < 3; a++)
+    {
+        for (s_op b = 0; b < 4; b++)
+        {
+            cout << ia[a][b] << ' ';
+        }
+        cout << endl;
+    }
+
+    // Using a conventional for loop with pointers.
+    cout << "Printing the elements using \"conventional for loop with pointers\": " << endl;
+    for (ptr_to_arr4 a = begin(ia); a < end(ia); a++)
+    {
+        for (ptr_to_int b = begin(*a); b < end(*a); b++)
+        {
+            cout << *b << ' ';
+        }
+        cout << endl;
+    }
 }
 
 /********************************************//**
@@ -637,7 +1490,50 @@ void ExerciseNum44 (void)
  ***********************************************/
 void ExerciseNum45 (void)
 {
-    /* This is exercise 45. */
+    using std::cout;
+    using std::endl;
+    using std::begin;
+    using std::end;
+
+    int ia[3][4] =
+    {
+        {0, 1, 3, 4},
+        {5, 6, 7, 8},
+        {9, 10, 11, 12}
+    };
+
+    // Using a range for.
+    cout << "Printing the elements using \"range for\": " << endl;
+    for (auto &a : ia)
+    {
+        for (auto &b : a)
+        {
+            cout << b << ' ';
+        }
+        cout << endl;
+    }
+
+    // Using a conventional for loop with subscripts.
+    cout << "Printing the elements using \"conventional for loop with subscripts\": " << endl;
+    for (auto a = 0; a < 3; a++)
+    {
+        for (auto b = 0; b < 4; b++)
+        {
+            cout << ia[a][b] << ' ';
+        }
+        cout << endl;
+    }
+
+    // Using a conventional for loop with pointers.
+    cout << "Printing the elements using \"conventional for loop with pointers\": " << endl;
+    for (auto a = begin(ia); a < end(ia); a++)
+    {
+        for (auto b = begin(*a); b < end(*a); b++)
+        {
+            cout << *b << ' ';
+        }
+        cout << endl;
+    }
 }
 
 /********************************************//**

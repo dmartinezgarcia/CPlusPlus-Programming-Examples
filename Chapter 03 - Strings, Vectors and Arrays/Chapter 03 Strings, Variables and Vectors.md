@@ -127,7 +127,7 @@ The following table depicts some of the most common string operations:
 |Functions|Description|
 |:---:|:------|
 |`os << s`|Writes `s` onto output stream `os`, returns `os`.|
-|`is >> s`|Reads a whitespace-separated string from `is` into `s`, returns `is`.|
+|`is >> s`|Reads a whitespace-separated string from input stream `is` into `s`, returns `is`.|
 |`getline(is, s)`|Reads a line of input from `is` into `s`, returns `is`.|
 |`s.empty()`|Returns `true` if `s` is empty, otherwise returns `false`.|
 |`s.size()`|Returns the number of characters in `s`.|
