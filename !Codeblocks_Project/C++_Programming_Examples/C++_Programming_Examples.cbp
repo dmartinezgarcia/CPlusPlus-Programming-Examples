@@ -39,6 +39,17 @@
 					<Add option="-g" />
 				</Compiler>
 			</Target>
+			<Target title="Chapter_04_-_Expressions">
+				<Option output="bin/Chapter_04_-_Expressions/C++_Programming_Examples" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Chapter_04_-_Expressions/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option projectCompilerOptionsRelation="1" />
+				<Compiler>
+					<Add option="-std=c++11" />
+					<Add option="-g" />
+				</Compiler>
+			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
@@ -64,6 +75,12 @@
 		</Unit>
 		<Unit filename="../../Chapter 03 - Strings, Vectors and Arrays/main.cpp">
 			<Option target="Chapter_03_-_Strings_Vectors_And_Arrays" />
+		</Unit>
+		<Unit filename="../../Chapter 04 - Expressions/Chapter 04 Expressions.md">
+			<Option target="Chapter_04_-_Expressions" />
+		</Unit>
+		<Unit filename="../../Chapter 04 - Expressions/main.cpp">
+			<Option target="Chapter_04_-_Expressions" />
 		</Unit>
 		<Unit filename="../../Template/main.cpp">
 			<Option target="&lt;{~None~}&gt;" />
