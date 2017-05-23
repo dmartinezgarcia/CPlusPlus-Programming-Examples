@@ -1,5 +1,5 @@
 // Exercise to execute. 1 <= ExerciseNum <= NumberOfTotalExercises.
-int ExerciseNum = 13;
+int ExerciseNum = 1;
 
 // Add function prototypes as you add them.
 void ExerciseNum1 (void);
@@ -91,8 +91,7 @@ Exercise Exercises[] =
 
 /********************************************//**
  *  Exercise 4.1
- *    std::cout << "(a) " << -30 * 3 + 21 / 5 << std::endl;
-    std::cout << "(b) " << -30 + 3 * 21 / 5 << std::endl;
+ *
  *  What is the value returned by 5 + 10 * 20 / 2?.
  ***********************************************/
 void ExerciseNum1 (void)
