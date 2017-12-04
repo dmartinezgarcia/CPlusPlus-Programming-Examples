@@ -72,6 +72,17 @@
 					<Add option="-g" />
 				</Compiler>
 			</Target>
+			<Target title="Chapter_07_-_Classes">
+				<Option output="bin/Chapter_07_-_Classes/C++_Programming_Examples" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Chapter_07_-_Classes/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option projectCompilerOptionsRelation="1" />
+				<Compiler>
+					<Add option="-std=c++11" />
+					<Add option="-g" />
+				</Compiler>
+			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
@@ -115,6 +126,39 @@
 		</Unit>
 		<Unit filename="../../Chapter 06 - Functions/main.cpp">
 			<Option target="Chapter_06_-_Functions" />
+		</Unit>
+		<Unit filename="../../Chapter 07 - Classes/Chapter 07 Classes.md">
+			<Option target="Chapter_07_-_Classes" />
+		</Unit>
+		<Unit filename="../../Chapter 07 - Classes/Person.cpp">
+			<Option target="Chapter_07_-_Classes" />
+		</Unit>
+		<Unit filename="../../Chapter 07 - Classes/Person.h">
+			<Option target="Chapter_07_-_Classes" />
+		</Unit>
+		<Unit filename="../../Chapter 07 - Classes/Sales_data.cpp">
+			<Option target="Chapter_07_-_Classes" />
+		</Unit>
+		<Unit filename="../../Chapter 07 - Classes/Sales_data.h">
+			<Option target="Chapter_07_-_Classes" />
+		</Unit>
+		<Unit filename="../../Chapter 07 - Classes/Screen.cpp">
+			<Option target="Chapter_07_-_Classes" />
+		</Unit>
+		<Unit filename="../../Chapter 07 - Classes/Screen.h">
+			<Option target="Chapter_07_-_Classes" />
+		</Unit>
+		<Unit filename="../../Chapter 07 - Classes/Window_mgr.cpp">
+			<Option target="Chapter_07_-_Classes" />
+		</Unit>
+		<Unit filename="../../Chapter 07 - Classes/Window_mgr.h">
+			<Option target="Chapter_07_-_Classes" />
+		</Unit>
+		<Unit filename="../../Chapter 07 - Classes/XY.h">
+			<Option target="Chapter_07_-_Classes" />
+		</Unit>
+		<Unit filename="../../Chapter 07 - Classes/main.cpp">
+			<Option target="Chapter_07_-_Classes" />
 		</Unit>
 		<Unit filename="../../Template/main.cpp">
 			<Option target="&lt;{~None~}&gt;" />
