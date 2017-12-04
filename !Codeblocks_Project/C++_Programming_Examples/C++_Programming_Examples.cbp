@@ -130,6 +130,33 @@
 		<Unit filename="../../Chapter 07 - Classes/Chapter 07 Classes.md">
 			<Option target="Chapter_07_-_Classes" />
 		</Unit>
+		<Unit filename="../../Chapter 07 - Classes/Person.cpp">
+			<Option target="Chapter_07_-_Classes" />
+		</Unit>
+		<Unit filename="../../Chapter 07 - Classes/Person.h">
+			<Option target="Chapter_07_-_Classes" />
+		</Unit>
+		<Unit filename="../../Chapter 07 - Classes/Sales_data.cpp">
+			<Option target="Chapter_07_-_Classes" />
+		</Unit>
+		<Unit filename="../../Chapter 07 - Classes/Sales_data.h">
+			<Option target="Chapter_07_-_Classes" />
+		</Unit>
+		<Unit filename="../../Chapter 07 - Classes/Screen.cpp">
+			<Option target="Chapter_07_-_Classes" />
+		</Unit>
+		<Unit filename="../../Chapter 07 - Classes/Screen.h">
+			<Option target="Chapter_07_-_Classes" />
+		</Unit>
+		<Unit filename="../../Chapter 07 - Classes/Window_mgr.cpp">
+			<Option target="Chapter_07_-_Classes" />
+		</Unit>
+		<Unit filename="../../Chapter 07 - Classes/Window_mgr.h">
+			<Option target="Chapter_07_-_Classes" />
+		</Unit>
+		<Unit filename="../../Chapter 07 - Classes/XY.h">
+			<Option target="Chapter_07_-_Classes" />
+		</Unit>
 		<Unit filename="../../Chapter 07 - Classes/main.cpp">
 			<Option target="Chapter_07_-_Classes" />
 		</Unit>
